@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<title>BitcoinCash VIDEO OP_RETURN 1.0</title>
+  	<meta charset="UTF-8">
+
+    <!-- Datacash unwriter -->
+    <script src='https://unpkg.com/datacash'></script>
+
+    <!--WebTorrent -->
+    <script src="https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js"></script>
+
+    <script src="main.js"></script>
+
+  </head>
+
+  <body>
+    PrivateKey: <input id="pkey" value="PrivateKey"><br>
+    Magnet Hash: <input id="hash" value="hash"><br>
+    Title: <input id="title" value="title"><br>
+    <button size="10" onclick="send();">Send Datacash</button><br>
+    <p>OR</p><br>
+    <button size="10" onclick="bitdb_get_magnetlinks(20);">Load from BitDB</button>
+
+    <div id="bitdb_output">...</div>
+  </body>
+</html>
