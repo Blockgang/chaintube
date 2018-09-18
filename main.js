@@ -35,22 +35,29 @@ function play(hash,title){
 
 
 function bitdb_get_magnetlinks(limit) {
-  console.log(limit);
+  var search_string = document.getElementById('search').value
+  console.log(limit, search_string);
   var query = {
     request: {
-      encoding: { b1: "hex" },
+      encoding: {
+        b1: "hex"
+      },
       find: {
-        b1: { "$in": ["e901"] }
+        b1: { "$in": ["e901"] },
+        s2: {
+          "$regex": search_string, "$options": "i"
+        }
+        // b2: search_string,
+        // 'senders.a': "qpy3cc67n3j9rpr8c3yx3lv0qc9k2kmfyud9e485w2"
       },
       project: {
-        b0:1 ,b1: 1, b2: 1, tx: 1, block_index: 1, _id: 0
+        b0:1 ,b1: 1, s2: 1, tx: 1, block_index: 1, _id: 0, senders: 1
       },
       limit: limit
     },
     response: {
       encoding: {
-        b1: "hex",
-        b2: "utf8"
+        b1: "hex"
       }
     }
   };
@@ -76,8 +83,8 @@ function bitdb_get_magnetlinks(limit) {
       for(i in r['confirmed']){
         var tx = r['confirmed'][i]
         var li = document.createElement('li');
-        li.innerHTML = "<a href='https://blockchair.com/bitcoin-cash/transaction/"+ tx.tx +"'>Blockexplorer</a>==> OP_RETURN: " + JSON.stringify(tx.b2);
-        data = check_data(tx.b2);
+        li.innerHTML = "<a href='https://blockchair.com/bitcoin-cash/transaction/"+ tx.tx +"'>Blockexplorer</a>==> OP_RETURN: " + JSON.stringify(tx);
+        data = check_data(tx.s2);
         if (data[0]){
           input_data = '"' + data[0] + '","' + data[1] + '"'
           li.innerHTML += "<button onclick='play(" + input_data + ");'>Play</button>";
@@ -96,7 +103,7 @@ function bitdb_get_magnetlinks(limit) {
         var tx = r['unconfirmed'][i]
         var li = document.createElement('li');
         li.innerHTML = "<a href='https://blockchair.com/bitcoin-cash/transaction/"+ tx.tx +"'>Blockexplorer</a>==> OP_RETURN: " + JSON.stringify(tx.b2);
-        data = check_data(tx.b2);
+        data = check_data(tx.s2);
         if (data[0]){
           input_data = '"' + data[0] + '","' + data[1] + '"'
           li.innerHTML += "<button onclick='play(" + input_data + ");'>Play</button>";
