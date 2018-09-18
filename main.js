@@ -107,6 +107,7 @@ function bitdb_get_magnetlinks(limit) {
 
 function download_torrent(hash,title){
   var torrentId = "magnet:?xt=urn:btih:" + hash + "&tr=udp://explodie.org:6969&tr=udp://tracker.coppersurfer.tk:6969&tr=udp://tracker.empire-js.us:1337&tr=udp://tracker.leechers-paradise.org:6969&tr=udp://tracker.opentrackr.org:1337&tr=wss://tracker.openwebtorrent.com"
+  // var torrentId = "magnet:?xt=urn:btih:" + hash + "&tr=udp://explodie.org:6969&tr=udp://tracker.coppersurfer.tk:6969&tr=udp://tracker.empire-js.us:1337&tr=udp://tracker.leechers-paradise.org:6969&tr=udp://tracker.opentrackr.org:1337&tr=wss://tracker.openwebtorrent.com&as=https://seed28.bitchute.com/ObwN8WgxyInB/9mZvVimJmlKD.mp4&xs=https://www.bitchute.com/torrent/ObwN8WgxyInB/9mZvVimJmlKD.webtorrent"
 
   var client = new WebTorrent()
 
