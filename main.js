@@ -68,39 +68,43 @@ function bitdb_get_magnetlinks(limit) {
     console.log(r)
     document.getElementById('bitdb_output').innerHTML = ""
 
-    var li = document.createElement('li');
-    li.innerHTML = "CONFIRMED:"
-    document.getElementById('bitdb_output').appendChild(li);
-
-    for(i in r['confirmed']){
-      var tx = r['confirmed'][i]
+    if(r['confirmed'].length != 0){
       var li = document.createElement('li');
-      li.innerHTML = "<a href='https://blockchair.com/bitcoin-cash/transaction/"+ tx.tx +"'>Blockexplorer</a>==> OP_RETURN: " + JSON.stringify(tx.b2);
-      data = check_data(tx.b2);
-      if (data[0]){
-        input_data = '"' + data[0] + '","' + data[1] + '"'
-        li.innerHTML += "<button onclick='play(" + input_data + ");'>Play</button>";
-      }
-      console.log("Test: " + data);
+      li.innerHTML = "CONFIRMED:"
       document.getElementById('bitdb_output').appendChild(li);
-    };
 
-    var li = document.createElement('li');
-    li.innerHTML = "UNCONFIRMED:"
-    document.getElementById('bitdb_output').appendChild(li);
-
-    for(i in r['unconfirmed']){
-      var tx = r['unconfirmed'][i]
+      for(i in r['confirmed']){
+        var tx = r['confirmed'][i]
+        var li = document.createElement('li');
+        li.innerHTML = "<a href='https://blockchair.com/bitcoin-cash/transaction/"+ tx.tx +"'>Blockexplorer</a>==> OP_RETURN: " + JSON.stringify(tx.b2);
+        data = check_data(tx.b2);
+        if (data[0]){
+          input_data = '"' + data[0] + '","' + data[1] + '"'
+          li.innerHTML += "<button onclick='play(" + input_data + ");'>Play</button>";
+          // li.innerHTML += "<a targethref='./video.html?' class='button'>Play</a>";
+        }
+        console.log("Test: " + data);
+        document.getElementById('bitdb_output').appendChild(li);
+      };
+    }
+    if(r['unconfirmed'].length != 0){
       var li = document.createElement('li');
-      li.innerHTML = "<a href='https://blockchair.com/bitcoin-cash/transaction/"+ tx.tx +"'>Blockexplorer</a>==> OP_RETURN: " + JSON.stringify(tx.b2);
-      data = check_data(tx.b2);
-      if (data[0]){
-        input_data = '"' + data[0] + '","' + data[1] + '"'
-        li.innerHTML += "<button onclick='play(" + input_data + ");'>Play</button>";
-      }
-      console.log("Test: " + data);
+      li.innerHTML = "UNCONFIRMED:"
       document.getElementById('bitdb_output').appendChild(li);
-    };
+
+      for(i in r['unconfirmed']){
+        var tx = r['unconfirmed'][i]
+        var li = document.createElement('li');
+        li.innerHTML = "<a href='https://blockchair.com/bitcoin-cash/transaction/"+ tx.tx +"'>Blockexplorer</a>==> OP_RETURN: " + JSON.stringify(tx.b2);
+        data = check_data(tx.b2);
+        if (data[0]){
+          input_data = '"' + data[0] + '","' + data[1] + '"'
+          li.innerHTML += "<button onclick='play(" + input_data + ");'>Play</button>";
+        }
+        console.log("Test: " + data);
+        document.getElementById('bitdb_output').appendChild(li);
+      };
+    }
   })
 };
 
