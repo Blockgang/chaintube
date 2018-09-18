@@ -1,5 +1,5 @@
-# chaintube
-video platform basierend auf BCH OP_RETURN
+***CHAINTUBE.CASH***
+Media Plattform basierend auf Bitcoin Cash (OP_RETURN)
 
 
 https://blockgang.github.io/chaintube
@@ -25,18 +25,24 @@ OP_RETURN 0xe902 08ada5a7a6183aae1e09d831df6748d566095a10|1|und das ist der 2. T
 
 Prefix: 0xe903 (Like)
 ```
-# OP_RETURN 0xe903 <magnet-hash>|<comment>
+# OP_RETURN 0xe903 <magnet-hash>
 
-OP_RETURN 0xe902 08ada5a7a6183aae1e09d831df6748d566095a10|Ich mag das Video!
+OP_RETURN 0xe902 08ada5a7a6183aae1e09d831df6748d566095a10
 ```
 
 Prefix: 0xe904 (Dislike)
 ```
-# OP_RETURN 0xe904 <magnet-hash>|<comment>
+# OP_RETURN 0xe904 <magnet-hash>
 
-OP_RETURN 0xe904 08ada5a7a6183aae1e09d831df6748d566095a10|Schlechtes Video... :(
+OP_RETURN 0xe904 08ada5a7a6183aae1e09d831df6748d566095a10
 ```
 
+Prefix: 0xe905 (Comment)
+```
+# OP_RETURN 0xe904 <magnet-hash>|<comment>
+
+OP_RETURN 0xe904 08ada5a7a6183aae1e09d831df6748d566095a10|Bestes Video überhaupt =)...
+```
 
 TODOs:
 
