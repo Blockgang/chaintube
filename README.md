@@ -1,9 +1,9 @@
-### CHAINTUBE.CASH ###
+##### CHAINTUBE.CASH #####
 
 Media Plattform basierend auf Bitcoin Cash (OP_RETURN)
 
-
 https://blockgang.github.io/chaintube
+
 
 Prefix: 0xe901 (Main)
 ```
@@ -40,9 +40,9 @@ OP_RETURN 0xe904 08ada5a7a6183aae1e09d831df6748d566095a10
 
 Prefix: 0xe905 (Comment)
 ```
-# OP_RETURN 0xe904 <magnet-hash>|<comment>
+# OP_RETURN 0xe905 <magnet-hash>|<comment>
 
-OP_RETURN 0xe904 08ada5a7a6183aae1e09d831df6748d566095a10|Bestes Video überhaupt =)...
+OP_RETURN 0xe905 08ada5a7a6183aae1e09d831df6748d566095a10|Bestes Video überhaupt =)...
 ```
 
 TODOs:
