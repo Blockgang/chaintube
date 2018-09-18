@@ -6,7 +6,7 @@ https://blockgang.github.io/chaintube
 
 Prefix: 0xe902
 
-OP_RETURN 0xe902 <magnet-hash>|<titel>
+"OP_RETURN 0xe902 <magnet-hash>|<titel>"
   
 ...
 
@@ -14,7 +14,7 @@ OP_RETURN 0xe902 b9628c4ab9b595f72f280b90c4fd093d|DAS IST DER TITEL DES VIEOS
 
 
 
-OP_RETURN 0xe903 <hash(<magnet-hash> + <titel>)>|<chunk-nr>|<data>
+"OP_RETURN 0xe903 <hash(<magnet-hash> + <titel>)>|<chunk-nr>|<data>"
   
 ...
 
