@@ -17,6 +17,8 @@ OP_RETURN 0xe902<magnet-hash>|1|das ist der erste teil
 OP_RETURN 0xe902<magnet-hash>|2|und das der 2 teil der beschreibung
 
 
+
+
 TODOs:
 
 webtorrent performance
