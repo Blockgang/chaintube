@@ -2,10 +2,11 @@ function send(){
   var pkey = document.getElementById('pkey').value
   var title = document.getElementById('title').value
   var hash = document.getElementById('hash').value
-  var prefix = "0xe902"
+  var prefix = "0xe901"
+  var type = "0x0001"
   // var hash = "ca2d7f92751d7f041c811ad0fb4aac1238cbf775"
   // var title = "BEETHOVEN - SONATA CLARO DE LUNA"
-  var raw_data = hash + "|" + title
+  var raw_data = hash + "|" + type + "|" + title
   datacash.send({
     data: [prefix, raw_data],
     cash: { key: pkey }
@@ -14,15 +15,16 @@ function send(){
 
 
 function check_data(data){
-  var regex = /([a-z0-9]{20,50})\|(.*$)/g
+  var regex = /([a-z0-9]{20,50})\|([0-9]{4})\|(.*$)/g
   var match = regex.exec(data)
   var title = false, hash = false
   if(match){
     hash = match[1];
-    title = match[2];
-    console.log("Hash: " + hash + " Titel: " +  title);
+    type = match[2];
+    title = match[3];
+    console.log("Hash: " + hash + "Type: " + type + " Titel: " +  title);
   }
-  return [hash,title]
+  return [hash,title,type]
 }
 
 function play(hash,title){
@@ -53,7 +55,7 @@ function bitdb_get_magnetlinks(limit) {
     request: {
       encoding: { b1: "hex" },
       find: {
-        b1: { "$in": ["e902"] }
+        b1: { "$in": ["e901"] }
       },
       project: {
         b0:1 ,b1: 1, b2: 1, tx: 1, block_index: 1, _id: 0
