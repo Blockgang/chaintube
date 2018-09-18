@@ -3,7 +3,7 @@ function send(){
   var title = document.getElementById('title').value
   var hash = document.getElementById('hash').value
   var prefix = "0xe901"
-  var type = "0x0001"
+  var type = "0001"
   // var hash = "ca2d7f92751d7f041c811ad0fb4aac1238cbf775"
   // var title = "BEETHOVEN - SONATA CLARO DE LUNA"
   var raw_data = hash + "|" + type + "|" + title
@@ -17,7 +17,7 @@ function send(){
 function check_data(data){
   var regex = /([a-z0-9]{20,50})\|([0-9]{4})\|(.*$)/g
   var match = regex.exec(data)
-  var title = false, hash = false
+  var title = false, hash = false, type = false
   if(match){
     hash = match[1];
     type = match[2];
@@ -90,7 +90,7 @@ function bitdb_get_magnetlinks(limit) {
     for(i in r['confirmed']){
       var tx = r['confirmed'][i]
       var li = document.createElement('li');
-      li.innerHTML = JSON.stringify(tx.b2);
+      li.innerHTML = "<a href='https://blockchair.com/bitcoin-cash/transaction/"+ tx.tx +"'>Blockexplorer</a>==> OP_RETURN: " + JSON.stringify(tx.b2);
       data = check_data(tx.b2);
       if (data[0]){
         input_data = '"' + data[0] + '","' + data[1] + '"'
@@ -107,7 +107,7 @@ function bitdb_get_magnetlinks(limit) {
     for(i in r['unconfirmed']){
       var tx = r['unconfirmed'][i]
       var li = document.createElement('li');
-      li.innerHTML = JSON.stringify(tx.b2);
+      li.innerHTML = "<a href='https://blockchair.com/bitcoin-cash/transaction/"+ tx.tx +"'>Blockexplorer</a>==> OP_RETURN: " + JSON.stringify(tx.b2);
       data = check_data(tx.b2);
       if (data[0]){
         input_data = '"' + data[0] + '","' + data[1] + '"'
