@@ -110,9 +110,6 @@ function download_torrent(hash,title){
 
   var client = new WebTorrent()
 
-  // insert torrentLink
-  document.getElementById('torrentLink').innerHTML = torrentId
-
   // HTML elements
   var $body = document.body
   var $progressBar = document.querySelector('#progressBar')
@@ -125,6 +122,12 @@ function download_torrent(hash,title){
 
   // Download the torrent
   client.add(torrentId, function (torrent) {
+
+    // insert data
+    document.getElementById('torrentLink').innerHTML = torrentId
+    // show divs
+    document.getElementById('status').style.display = "block";
+    document.getElementById('progressBar').style.display = "block";
 
     // Torrents can contain many files. Let's use the .mp4 file
     var file = torrent.files.find(function (file) {

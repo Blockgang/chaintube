@@ -16,40 +16,39 @@
   </head>
 
   <body>
-    PrivateKey: <input id="pkey" value="PrivateKey"><br>
-    Magnet Hash: <input id="hash" value="hash"><br>
-    Title: <input id="title" value="title"><br>
-    <button size="10" onclick="send();">Send Datacash</button><br>
-    <p>OR</p>
-    <button size="10" onclick="bitdb_get_magnetlinks(100);">Load last 100 from BitDB</button>
-
-    <div id="bitdb_output">...</div><br>
-      <div id="hero">
-      <div id="output">
-        <div id="progressBar"></div>
-        <!-- The video player will be added here -->
-      </div>
-      <!-- Statistics -->
-      <div id="status">
-        <div>
-          <span class="show-leech">Downloading </span>
-          <span class="show-seed">Seeding </span>
-          <code>
-            <!-- Informative link to the torrent file -->
-            <a id="torrentLink"></a>
-          </code>
-          <span class="show-leech"> from </span>
-          <span class="show-seed"> to </span>
-          <code id="numPeers">0 peers</code>.
+      <div id="main">
+        PrivateKey: <input id="pkey" value="PrivateKey"><br>
+        Magnet Hash: <input id="hash" value="hash"><br>
+        Title: <input id="title" value="title"><br>
+        <button size="10" onclick="send();">Send Datacash</button><br>
+        <p>OR</p>
+        <button size="10" onclick="bitdb_get_magnetlinks(100);">Load last 100 from BitDB</button>
+        <div id="bitdb_output">...</div><br>
+        <div id="output">
+          <div id="progressBar" style="display:none"></div>
+          <!-- The video player will be added here -->
         </div>
-        <div>
-          <code id="downloaded"></code>
-          of <code id="total"></code>
-          — <span id="remaining"></span><br/>
-          &#x2198;<code id="downloadSpeed">0 b/s</code>
-          / &#x2197;<code id="uploadSpeed">0 b/s</code>
+        <!-- Statistics -->
+        <div id="status" style="display:none">
+          <div>
+            <span class="show-leech">Downloading </span>
+            <span class="show-seed">Seeding </span>
+            <code>
+              <!-- Informative link to the torrent file -->
+              <a id="torrentLink"></a>
+            </code>
+            <span class="show-leech"> from </span>
+            <span class="show-seed"> to </span>
+            <code id="numPeers">0 peers</code>.
+          </div>
+          <div>
+            <code id="downloaded"></code>
+            of <code id="total"></code>
+            — <span id="remaining"></span><br/>
+            &#x2198;<code id="downloadSpeed">0 b/s</code>
+            / &#x2197;<code id="uploadSpeed">0 b/s</code>
+          </div>
         </div>
-      </div>
     </div>
   </body>
 </html>

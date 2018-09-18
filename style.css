@@ -2,7 +2,7 @@
   width: 100%;
 }
 #progressBar {
-    height: 5px;
+    height: 10px;
     width: 0%;
     background-color: #35b44f;
     transition: width .4s ease-in-out;
@@ -28,10 +28,11 @@ body.is-seed .show-leech {
     background-color: #154820;
     transition: .5s .5s background-color ease-in-out;
 }
-#hero {
+#output {
     background-color: #2a3749;
 }
 #status {
+    background-color: dimgray;
     color: #fff;
     font-size: 17px;
     padding: 5px;
