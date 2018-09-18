@@ -24,7 +24,7 @@ OP_RETURN 0xe902 08ada5a7a6183aae1e09d831df6748d566095a10|1|und das ist der 2. T
 ...
 ```
 
-Prefix: 0xe903 (Like)
+Prefix: 0xe903 (Like + Tip)
 ```
 # OP_RETURN 0xe903 <magnet-hash>
 
@@ -45,6 +45,7 @@ Prefix: 0xe905 (Comment)
 OP_RETURN 0xe905 08ada5a7a6183aae1e09d831df6748d566095a10|Bestes Video überhaupt =)...
 ```
 
+MEMO-Example:
 ```
 Action 	Prefix 	Values 	Status 	Example
 Set name 	0x6d01 	name(217) 	Implemented 	
