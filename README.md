@@ -45,6 +45,26 @@ Prefix: 0xe905 (Comment)
 OP_RETURN 0xe905 08ada5a7a6183aae1e09d831df6748d566095a10|Bestes Video überhaupt =)...
 ```
 
+```
+Action 	Prefix 	Values 	Status 	Example
+Set name 	0x6d01 	name(217) 	Implemented 	
+Post memo 	0x6d02 	message(217) 	Implemented 	
+Reply to memo 	0x6d03 	txhash(30), message(184) 	Implemented 	
+Like / tip memo 	0x6d04 	txhash(30) 	Implemented 	
+Set profile text 	0x6d05 	message(217) 	Implemented 	
+Follow user 	0x6d06 	address(35) 	Implemented 	
+Unfollow user 	0x6d07 	address(35) 	Implemented 	
+Set profile picture 	0x6d0a 	url(217) 	Implemented 	
+Repost memo 	0x6d0b 	txhash(30), message(184) 	Planned 	-
+Post topic message 	0x6d0c 	topic_name(variable), message(214 - topic length) 	Implemented 	
+Topic follow 	0x6d0d 	topic_name(variable) 	Implemented 	
+Topic unfollow 	0x6d0e 	topic_name(variable) 	Implemented 	
+Create poll 	0x6d10 	poll_type(1), option_count(1), question(209) 	Implemented 	
+Add poll option 	0x6d13 	poll_txhash(30), option(184) 	Implemented 	
+Poll vote 	0x6d14 	poll_txhash(30), comment(184) 	Implemented 	
+Send money 	0x6d24 	message(217) 	Planned
+```
+
 TODOs:
 
 webtorrent performance
