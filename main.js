@@ -36,7 +36,8 @@ function play(hash,title){
 function download_torrent(hash,title){
   var client = new WebTorrent()
 
-  var torrentId = "magnet:?xt=urn:btih:" + hash + "&dn=L24Mn6Udva9T.mp4&tr=udp://explodie.org:6969&tr=udp://tracker.coppersurfer.tk:6969&tr=udp://tracker.empire-js.us:1337&tr=udp://tracker.leechers-paradise.org:6969&tr=udp://tracker.opentrackr.org:1337&tr=wss://tracker.openwebtorrent.com&as=https://seed01.bitchute.com/ObwN8WgxyInB/L24Mn6Udva9T.mp4&as=https://seed02.bitchute.com/ObwN8WgxyInB/L24Mn6Udva9T.mp4&as=https://seed03.bitchute.com/ObwN8WgxyInB/L24Mn6Udva9T.mp4&xs=https://www.bitchute.com/torrent/ObwN8WgxyInB/L24Mn6Udva9T.webtorrent"
+  var torrentId = "magnet:?xt=urn:btih:" + hash + "&tr=udp://explodie.org:6969&tr=udp://tracker.coppersurfer.tk:6969&tr=udp://tracker.empire-js.us:1337&tr=udp://tracker.leechers-paradise.org:6969&tr=udp://tracker.opentrackr.org:1337&tr=wss://tracker.openwebtorrent.com"
+  // var torrentId = "magnet:?xt=urn:btih:" + hash + "&tr=udp://explodie.org:6969&tr=udp://tracker.coppersurfer.tk:6969&tr=udp://tracker.empire-js.us:1337&tr=udp://tracker.leechers-paradise.org:6969&tr=udp://tracker.opentrackr.org:1337&tr=wss://tracker.openwebtorrent.com&as=https://seed01.bitchute.com/ObwN8WgxyInB/L24Mn6Udva9T.mp4&as=https://seed02.bitchute.com/ObwN8WgxyInB/L24Mn6Udva9T.mp4&as=https://seed03.bitchute.com/ObwN8WgxyInB/L24Mn6Udva9T.mp4&xs=https://www.bitchute.com/torrent/ObwN8WgxyInB/L24Mn6Udva9T.webtorrent"
 
   client.add(torrentId, function (torrent) {
     // Torrents can contain many files. Let's use the .mp4 file
