@@ -4,24 +4,37 @@ video platform basierend auf BCH OP_RETURN
 
 https://blockgang.github.io/chaintube
 
-Prefix: 0xe902
+Prefix: 0xe901 (Main)
 ```
 
-OP_RETURN 0xe902 <magnet-hash>|type|<titel>
-  
+# OP_RETURN 0xe901 <magnet-hash>|type|<titel>
+
+OP_RETURN 0xe901 08ada5a7a6183aae1e09d831df6748d566095a10|mp4|DAS IST DER TITEL DES VIEOS
+
+```
+
+Prefix: 0xe902 (Description)
+```
+# OP_RETURN 0xe902 <magnet-hash>|<chunk-nr>|<data>
+
+OP_RETURN 0xe902 08ada5a7a6183aae1e09d831df6748d566095a10|0|Erster Teil der Beschreibung
+
+OP_RETURN 0xe902 08ada5a7a6183aae1e09d831df6748d566095a10|1|und das ist der 2. Teil der Beschreibung
 ...
+```
 
-OP_RETURN 0xe902 k|mp4|DAS IST DER TITEL DES VIEOS
+Prefix: 0xe903 (Like)
+```
+# OP_RETURN 0xe903 <magnet-hash>|<comment>
 
+OP_RETURN 0xe902 08ada5a7a6183aae1e09d831df6748d566095a10|Ich mag das Video!
+```
 
+Prefix: 0xe904 (Dislike)
+```
+# OP_RETURN 0xe904 <magnet-hash>|<comment>
 
-OP_RETURN 0xe903 <hash(<magnet-hash> + <titel>)>|<chunk-nr>|<data>
-  
-...
-
-OP_RETURN 0xe903 68b329da9893e34099c7d8ad5cb9c940|0|das ist der erste teil
-
-OP_RETURN 0xe903 68b329da9893e34099c7d8ad5cb9c940|1|und das der 2 teil der beschreibung
+OP_RETURN 0xe904 08ada5a7a6183aae1e09d831df6748d566095a10|Schlechtes Video... :(
 ```
 
 
