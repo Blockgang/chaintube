@@ -88,28 +88,33 @@ function bitdb_get_magnetlinks(limit) {
         var td_opreturn = document.createElement('td');
         var td_sender = document.createElement('td');
         var td_blockheight = document.createElement('td');
+        var td_play = document.createElement('td');
 
         td_txid.innerHTML = "<a href='https://blockchair.com/bitcoin-cash/transaction/"+ tx.tx +"'>Blockexplorer</a>";
-        td_opreturn.innerHTML = JSON.stringify(tx.s2);
-        td_sender.innerHTML = JSON.stringify(tx.senders.a);
-        td_blockheight.innerHTML = JSON.stringify(tx.senders.block_index);
+        console.log(tx)
+        td_opreturn.innerHTML = tx.s2
+        td_sender.innerHTML = tx.senders[0].a
+        td_blockheight.innerHTML = tx.block_index
 
+        data = check_data(tx.s2);
+        if (data[0]){
+           input_data = '"' + data[0] + '","' + data[1] + '"'
+           td_play.innerHTML = "<img src='icons/icons8-circled-play-48.png' onclick='play(" + input_data + ");'>";
+        }else{
+          td_play.innerHTML = "<img src='icons/icons8-close-window-48.png'>";
+
+        }
+
+        tr.appendChild(td_play);
         tr.appendChild(td_txid);
         tr.appendChild(td_opreturn);
         tr.appendChild(td_sender);
         tr.appendChild(td_blockheight);
 
-        data = check_data(tx.s2);
-        if (data[0]){
-           input_data = '"' + data[0] + '","' + data[1] + '"'
-           var td_play = document.createElement('td');
-           td_play.innerHTML = "<button onclick='play(" + input_data + ");'>Play</button>";
-           tr.appendChild(td_play);
-        }
-
         document.getElementById('bitdb_output').appendChild(tr);
       };
     }
+
     if(r['unconfirmed'].length != 0){
       var li = document.createElement('li');
       li.innerHTML = "UNCONFIRMED:"
