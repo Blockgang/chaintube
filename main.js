@@ -76,7 +76,7 @@ function bitdb_get_magnetlinks(limit) {
     console.log(r)
     document.getElementById('bitdb_output').innerHTML = ""
 
-    document.getElementById('bitdb_output_header').style.display = "table-row"
+    document.getElementById('bitdb_output_table').style.display = "table-row"
 
 
     if(r['confirmed'].length != 0){
@@ -93,8 +93,7 @@ function bitdb_get_magnetlinks(limit) {
         var tx = r['unconfirmed'][i]
         list_tx_results(tx,false);
       };
-    }
-
+    };
   })
 };
 
