@@ -99,7 +99,7 @@ function bitdb_get_magnetlinks(limit) {
         data = check_data(tx.s2);
         if (data[0]){
            input_data = '"' + data[0] + '","' + data[1] + '"'
-           td_play.innerHTML = "<img src='icons/icons8-circled-play-48.png' onclick='play(" + input_data + ");'>";
+           td_play.innerHTML = "<a target='_blank' onclick='play(" + input_data + ");'><img src='icons/icons8-circled-play-48.png'></a>";
         }else{
           td_play.innerHTML = "<img src='icons/icons8-close-window-48.png'>";
 
@@ -116,23 +116,37 @@ function bitdb_get_magnetlinks(limit) {
     }
 
     if(r['unconfirmed'].length != 0){
-      var li = document.createElement('li');
-      li.innerHTML = "UNCONFIRMED:"
-      document.getElementById('bitdb_output').appendChild(li);
+      var tx = r['unconfirmed'][i]
+      var tr = document.createElement('tr');
+      var td_txid = document.createElement('td');
+      var td_opreturn = document.createElement('td');
+      var td_sender = document.createElement('td');
+      var td_blockheight = document.createElement('td');
+      var td_play = document.createElement('td');
 
-      for(i in r['unconfirmed']){
-        var tx = r['unconfirmed'][i]
-        var li = document.createElement('li');
-        li.innerHTML = "<a href='https://blockchair.com/bitcoin-cash/transaction/"+ tx.tx +"'>Blockexplorer</a>==> OP_RETURN: " + JSON.stringify(tx.b2);
-        data = check_data(tx.s2);
-        if (data[0]){
-          input_data = '"' + data[0] + '","' + data[1] + '"'
-          li.innerHTML += "<button onclick='play(" + input_data + ");'>Play</button>";
-        }
-        console.log("Test: " + data);
-        document.getElementById('bitdb_output').appendChild(li);
-      };
-    }
+      td_txid.innerHTML = "<a href='https://blockchair.com/bitcoin-cash/transaction/"+ tx.tx +"'>Blockexplorer</a>";
+      console.log(tx)
+      td_opreturn.innerHTML = tx.s2
+      td_sender.innerHTML = tx.senders[0].a
+      td_blockheight.innerHTML = tx.block_index
+
+      data = check_data(tx.s2);
+      if (data[0]){
+         input_data = '"' + data[0] + '","' + data[1] + '"'
+         td_play.innerHTML = "<a target='_blank' onclick='play(" + input_data + ");'><img src='icons/icons8-circled-play-48.png'></a>";
+      }else{
+        td_play.innerHTML = "<img src='icons/icons8-close-window-48.png'>";
+
+      }
+
+      tr.appendChild(td_play);
+      tr.appendChild(td_txid);
+      tr.appendChild(td_opreturn);
+      tr.appendChild(td_sender);
+      tr.appendChild(td_blockheight);
+
+      document.getElementById('bitdb_output').appendChild(tr);
+    };
   })
 };
 
