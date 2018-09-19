@@ -7,6 +7,7 @@ function send(){
   // var hash = "ca2d7f92751d7f041c811ad0fb4aac1238cbf775"
   // var title = "BEETHOVEN - SONATA CLARO DE LUNA"
   var raw_data = hash + "|" + type + "|" + title
+  console.log(raw_data);
   datacash.send({
     data: [prefix, raw_data],
     cash: { key: pkey }
@@ -80,74 +81,53 @@ function bitdb_get_magnetlinks(limit) {
 
     if(r['confirmed'].length != 0){
       var tr = document.createElement('tr');
-
       for(i in r['confirmed']){
         var tx = r['confirmed'][i]
-        var tr = document.createElement('tr');
-        var td_txid = document.createElement('td');
-        var td_opreturn = document.createElement('td');
-        var td_sender = document.createElement('td');
-        var td_blockheight = document.createElement('td');
-        var td_play = document.createElement('td');
+        list_tx_results(tx,true);
+      };
+    };
 
-        td_txid.innerHTML = "<a href='https://blockchair.com/bitcoin-cash/transaction/"+ tx.tx +"'>Blockexplorer</a>";
-        console.log(tx)
-        td_opreturn.innerHTML = tx.s2
-        td_sender.innerHTML = tx.senders[0].a
-        td_blockheight.innerHTML = tx.block_index
-
-        data = check_data(tx.s2);
-        if (data[0]){
-           input_data = '"' + data[0] + '","' + data[1] + '"'
-           td_play.innerHTML = "<a target='_blank' onclick='play(" + input_data + ");'><img src='icons/icons8-circled-play-48.png'></a>";
-        }else{
-          td_play.innerHTML = "<img src='icons/icons8-close-window-48.png'>";
-
-        }
-
-        tr.appendChild(td_play);
-        tr.appendChild(td_txid);
-        tr.appendChild(td_opreturn);
-        tr.appendChild(td_sender);
-        tr.appendChild(td_blockheight);
-
-        document.getElementById('bitdb_output').appendChild(tr);
+    if(r['unconfirmed'].length != 0){
+      var tr = document.createElement('tr');
+      for(i in r['unconfirmed']){
+        var tx = r['unconfirmed'][i]
+        list_tx_results(tx,false);
       };
     }
 
-    if(r['unconfirmed'].length != 0){
-      var tx = r['unconfirmed'][i]
-      var tr = document.createElement('tr');
-      var td_txid = document.createElement('td');
-      var td_opreturn = document.createElement('td');
-      var td_sender = document.createElement('td');
-      var td_blockheight = document.createElement('td');
-      var td_play = document.createElement('td');
-
-      td_txid.innerHTML = "<a href='https://blockchair.com/bitcoin-cash/transaction/"+ tx.tx +"'>Blockexplorer</a>";
-      console.log(tx)
-      td_opreturn.innerHTML = tx.s2
-      td_sender.innerHTML = tx.senders[0].a
-      td_blockheight.innerHTML = tx.block_index
-
-      data = check_data(tx.s2);
-      if (data[0]){
-         input_data = '"' + data[0] + '","' + data[1] + '"'
-         td_play.innerHTML = "<a target='_blank' onclick='play(" + input_data + ");'><img src='icons/icons8-circled-play-48.png'></a>";
-      }else{
-        td_play.innerHTML = "<img src='icons/icons8-close-window-48.png'>";
-
-      }
-
-      tr.appendChild(td_play);
-      tr.appendChild(td_txid);
-      tr.appendChild(td_opreturn);
-      tr.appendChild(td_sender);
-      tr.appendChild(td_blockheight);
-
-      document.getElementById('bitdb_output').appendChild(tr);
-    };
   })
+};
+
+function list_tx_results(tx,confirmed){
+  var tr = document.createElement('tr');
+  var td_txid = document.createElement('td');
+  var td_opreturn = document.createElement('td');
+  var td_sender = document.createElement('td');
+  var td_blockheight = document.createElement('td');
+  var td_play = document.createElement('td');
+
+  td_txid.innerHTML = "<a href='https://blockchair.com/bitcoin-cash/transaction/"+ tx.tx +"'>Blockexplorer</a>";
+  console.log(tx)
+  td_opreturn.innerHTML = tx.s2
+  td_sender.innerHTML = tx.senders[0].a
+  td_blockheight.innerHTML = (confirmed) ? (tx.block_index) : ("unconfirmed")
+
+  data = check_data(tx.s2);
+  if (data[0]){
+     input_data = '"' + data[0] + '","' + data[1] + '"'
+     td_play.innerHTML = "<a target='_blank' onclick='play(" + input_data + ");'><img src='icons/icons8-circled-play-48.png'></a>";
+  }else{
+    td_play.innerHTML = "<img src='icons/icons8-close-window-48.png'>";
+
+  }
+
+  tr.appendChild(td_play);
+  tr.appendChild(td_txid);
+  tr.appendChild(td_opreturn);
+  tr.appendChild(td_sender);
+  tr.appendChild(td_blockheight);
+
+  document.getElementById('bitdb_output').appendChild(tr);
 };
 
 
