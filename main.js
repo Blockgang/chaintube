@@ -75,23 +75,39 @@ function bitdb_get_magnetlinks(limit) {
     console.log(r)
     document.getElementById('bitdb_output').innerHTML = ""
 
+    document.getElementById('bitdb_output_header').style.display = "table-row"
+
+
     if(r['confirmed'].length != 0){
-      var li = document.createElement('li');
-      li.innerHTML = "CONFIRMED:"
-      document.getElementById('bitdb_output').appendChild(li);
+      var tr = document.createElement('tr');
 
       for(i in r['confirmed']){
         var tx = r['confirmed'][i]
-        var li = document.createElement('li');
-        li.innerHTML = "<a href='https://blockchair.com/bitcoin-cash/transaction/"+ tx.tx +"'>Blockexplorer</a>==> OP_RETURN: " + JSON.stringify(tx);
+        var tr = document.createElement('tr');
+        var td_txid = document.createElement('td');
+        var td_opreturn = document.createElement('td');
+        var td_sender = document.createElement('td');
+        var td_blockheight = document.createElement('td');
+
+        td_txid.innerHTML = "<a href='https://blockchair.com/bitcoin-cash/transaction/"+ tx.tx +"'>Blockexplorer</a>";
+        td_opreturn.innerHTML = JSON.stringify(tx.s2);
+        td_sender.innerHTML = JSON.stringify(tx.senders.a);
+        td_blockheight.innerHTML = JSON.stringify(tx.senders.block_index);
+
+        tr.appendChild(td_txid);
+        tr.appendChild(td_opreturn);
+        tr.appendChild(td_sender);
+        tr.appendChild(td_blockheight);
+
         data = check_data(tx.s2);
         if (data[0]){
-          input_data = '"' + data[0] + '","' + data[1] + '"'
-          li.innerHTML += "<button onclick='play(" + input_data + ");'>Play</button>";
-          // li.innerHTML += "<a targethref='./video.html?' class='button'>Play</a>";
+           input_data = '"' + data[0] + '","' + data[1] + '"'
+           var td_play = document.createElement('td');
+           td_play.innerHTML = "<button onclick='play(" + input_data + ");'>Play</button>";
+           tr.appendChild(td_play);
         }
-        console.log("Test: " + data);
-        document.getElementById('bitdb_output').appendChild(li);
+
+        document.getElementById('bitdb_output').appendChild(tr);
       };
     }
     if(r['unconfirmed'].length != 0){

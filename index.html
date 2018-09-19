@@ -1,8 +1,9 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
   <head>
-  	<title>BitcoinCash VIDEO OP_RETURN 1.1</title>
-  	<meta charset="UTF-8">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Datacash unwriter -->
     <script src='https://unpkg.com/datacash'></script>
@@ -10,46 +11,137 @@
     <!--WebTorrent -->
     <script src="https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js"></script>
 
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!-- Functions -->
     <script src="main.js"></script>
+    <!-- Stylesheet -->
     <link rel="stylesheet" type="text/css" href="style.css">
 
-  </head>
 
+    <title>BitcoinCash VIDEO OP_RETURN 1.2</title>
+  </head>
   <body>
-      <div id="main">
-        PrivateKey: <input id="pkey" value="PrivateKey"><br>
-        Magnet Hash: <input id="hash" value="hash"><br>
-        Title: <input id="title" value="title"><br>
-        <button size="10" onclick="send();">Write into Blockchain</button><br>
-        <p>OR</p>
-        Search: <input id="search" value=""><br>
-        <button size="10" onclick="bitdb_get_magnetlinks(100);">Load last 100 from BitDB</button>
-        <div id="bitdb_output">...</div><br>
-        <div id="output">
-          <div id="progressBar" style="display:none"></div>
-          <!-- The video player will be added here -->
-        </div>
-        <!-- Statistics -->
-        <div id="status" style="display:none">
-          <div>
-            <span class="show-leech">Downloading </span>
-            <span class="show-seed">Seeding </span>
-            <code>
-              <!-- Informative link to the torrent file -->
-              <a id="torrentLink"></a>
-            </code>
-            <span class="show-leech"> from </span>
-            <span class="show-seed"> to </span>
-            <code id="numPeers">0 peers</code>.
-          </div>
-          <div>
-            <code id="downloaded"></code>
-            of <code id="total"></code>
-            — <span id="remaining"></span><br/>
-            &#x2198;<code id="downloadSpeed">0 b/s</code>
-            / &#x2197;<code id="uploadSpeed">0 b/s</code>
+    <!-- <div class="container.fluid" id="main"> -->
+    <div class="container" id="main">
+      <!-- Data Input -->
+      <div class="container" id="input_container">
+        <div class="row">
+          <div class="col">
+            <h2>Write Data into Blockchain:</h2>
           </div>
         </div>
+
+        <div class="row">
+          <div class="col">
+            <p>PrivateKey:</p>
+          </div>
+          <div class="col">
+            <input id="pkey" value="PrivateKey">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <p>Magnet Hash:</p>
+          </div>
+          <div class="col">
+            <input id="hash" value="hash">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <p>Title:</p>
+          </div>
+          <div class="col">
+            <input id="title" value="title">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <button size="10" onclick="send();">Write into Blockchain</button>
+          </div>
+        </div>
+      </div>
+
+      <br>
+      <!-- Search -->
+      <div class="container" id="search_container">
+        <div class="row">
+          <img src="https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif" class="rounded float-right" alt="..." height=100px>
+        </div>
+      </div>
+      <!-- Search -->
+      <div class="container" id="search_container">
+        <div class="row">
+          <div class="col">
+            <h2>Search via BitDB:</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p>Search:</p>
+          </div>
+          <div class="col">
+            <input id="search" value="">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <button size="10" onclick="bitdb_get_magnetlinks(100);">Load last 100 from BitDB</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search Output -->
+      <div class="container">
+        <table class="table">
+          <thead>
+            <tr id="bitdb_output_header" style="display:none">
+              <th scope="col">Block</th>
+              <th scope="col">Description</th>
+              <th scope="col">Tx-Link</th>
+            </tr>
+          </thead>
+          <tbody id="bitdb_output">
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Video Output -->
+      <div class="container" id="output">
+        <div id="progressBar" style="display:none"></div>
+        <!-- The video player will be added here -->
+      </div>
+      <!-- Statistics -->
+      <div id="status" style="display:none">
+        <div>
+          <span class="show-leech">Downloading </span>
+          <span class="show-seed">Seeding </span>
+          <code>
+            <!-- Informative link to the torrent file -->
+            <a id="torrentLink"></a>
+          </code>
+          <span class="show-leech"> from </span>
+          <span class="show-seed"> to </span>
+          <code id="numPeers">0 peers</code>.
+        </div>
+        <div>
+          <code id="downloaded"></code>
+          of <code id="total"></code>
+          — <span id="remaining"></span><br/>
+          &#x2198;<code id="downloadSpeed">0 b/s</code>
+          / &#x2197;<code id="uploadSpeed">0 b/s</code>
+        </div>
+      </div>
     </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   </body>
 </html>
