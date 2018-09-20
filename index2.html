@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>BitcoinCash VIDEO OP_RETURN 1.2</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <!-- Datacash unwriter -->
+  <script src='https://unpkg.com/datacash'></script>
+
+  <!--WebTorrent -->
+  <script src="https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js"></script>
+
+  <!-- Functions -->
+  <script src="main.js"></script>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" type="text/css" href="style2.css">
+</head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#myPage">Logo</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#dashboard">DASHBOARD</a></li>
+        <li><a href="#new">NEW</a></li>
+        <li><a href="#videos">VIDEOS</a></li>
+        <li><a href="#channels">CHANNELS</a></li>
+        <li><a href="#protocol">PROTOCOL</a></li>
+        <li><a href="#about">ABOUT</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="jumbotron text-center">
+  <h1>Chaintube</h1>
+  <p>Search for Videos on the Blockchain</p>
+  <form>
+    <div class="input-group">
+      <input id="search" type="text" class="form-control" size="50" placeholder="Beethoven" required>
+      <div class="input-group-btn">
+        <button onclick="bitdb_get_magnetlinks(100);" type="button" class="btn btn-danger">Search</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- Container (Dashboard Section) -->
+<div id="Dashboard" class="container-fluid">
+  <!-- Search Output -->
+  <div class="container">
+    <table class="table" id="bitdb_output_table" style="display:none">
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">TX-Link</th>
+          <th scope="col">Title</th>
+          <th scope="col">Type</th>
+          <th scope="col">MagnetHash</th>
+          <th scope="col">Sender</th>
+          <th scope="col">BlockIndex</th>
+        </tr>
+      </thead>
+      <tbody id="bitdb_output">
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Video Output -->
+  <div class="container" id="output">
+    <div id="progressBar" style="display:none"></div>
+    <!-- The video player will be added here -->
+  </div>
+  <!-- Statistics -->
+  <div id="status" style="display:none">
+    <div>
+      <span class="show-leech">Downloading </span>
+      <span class="show-seed">Seeding </span>
+      <code>
+        <!-- Informative link to the torrent file -->
+        <a id="torrentLink"></a>
+      </code>
+      <span class="show-leech"> from </span>
+      <span class="show-seed"> to </span>
+      <code id="numPeers">0 peers</code>.
+    </div>
+    <div>
+      <code id="downloaded"></code>
+      of <code id="total"></code>
+      — <span id="remaining"></span><br/>
+      &#x2198;<code id="downloadSpeed">0 b/s</code>
+      / &#x2197;<code id="uploadSpeed">0 b/s</code>
+    </div>
+  </div>
+</div>
+
+
+<div class="container-fluid bg-grey">
+  <div class="col-md-8 col-md-offset-4">
+    <h2>Write Data into Blockchain:</h2><br>
+    <!-- Data Input -->
+    <div class="row">
+      <div class="col-md-12 form-group">
+        <label>PrivateKey:</label>
+        <input id="pkey" class="form-control" value="PrivateKey...">
+      </div>
+      <div class="col-md-12 form-group">
+        <label>Magnet Hash:</label>
+        <input id="hash" class="form-control" value="Magnet-Hash...">
+      </div>
+      <div class="col-md-12 form-group">
+        <label>Title:</label>
+        <input id="title" class="form-control" value="Title...">
+      </div>
+      <div class="col-md-12 form-group">
+        <button size="10" class="form-control" onclick="send();">Write into Blockchain</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<footer class="container-fluid text-center">
+  <a href="#myPage" title="To Top">
+    <span class="glyphicon glyphicon-chevron-up"></span>
+  </a>
+  <p>Bootstrap Theme Made By <a href="https://www.w3schools.com" title="Visit w3schools">www.w3schools.com</a></p>
+</footer>
+
+<script>
+$(document).ready(function(){
+  // Add smooth scrolling to all links in navbar + footer link
+  $(".navbar a, footer a[href='#myPage']").on('click', function(event) {
+    // Make sure this.hash has a value before overriding default behavior
+    if (this.hash !== "") {
+      // Prevent default anchor click behavior
+      event.preventDefault();
+
+      // Store hash
+      var hash = this.hash;
+
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 900, function(){
+
+        // Add hash (#) to URL when done scrolling (default click behavior)
+        window.location.hash = hash;
+      });
+    } // End if
+  });
+
+  $(window).scroll(function() {
+    $(".slideanim").each(function(){
+      var pos = $(this).offset().top;
+
+      var winTop = $(window).scrollTop();
+        if (pos < winTop + 600) {
+          $(this).addClass("slide");
+        }
+    });
+  });
+})
+</script>
+
+</body>
+</html>
