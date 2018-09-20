@@ -67,47 +67,53 @@
 <div id="Dashboard" class="container-fluid">
   <!-- Search Output -->
   <div class="container">
-    <table class="table" id="bitdb_output_table" style="display:none">
-      <thead>
-        <tr>
-          <th scope="col"></th>
-          <th scope="col">TX-Link</th>
-          <th scope="col">Title</th>
-          <th scope="col">Type</th>
-          <th scope="col">MagnetHash</th>
-          <th scope="col">Sender</th>
-          <th scope="col">BlockIndex</th>
-        </tr>
-      </thead>
-      <tbody id="bitdb_output">
-      </tbody>
-    </table>
+    <div class="row">
+      <table class="table" id="bitdb_output_table" style="display:none">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">TX-Link</th>
+            <th scope="col">Title</th>
+            <th scope="col">Type</th>
+            <th scope="col">MagnetHash</th>
+            <th scope="col">Sender</th>
+            <th scope="col">BlockIndex</th>
+          </tr>
+        </thead>
+        <tbody id="bitdb_output">
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <!-- Video Output -->
   <div class="container" id="output">
-    <div id="progressBar" style="display:none"></div>
-    <!-- The video player will be added here -->
-  </div>
-  <!-- Statistics -->
-  <div id="status" style="display:none">
-    <div>
-      <span class="show-leech">Downloading </span>
-      <span class="show-seed">Seeding </span>
-      <code>
-        <!-- Informative link to the torrent file -->
-        <a id="torrentLink"></a>
-      </code>
-      <span class="show-leech"> from </span>
-      <span class="show-seed"> to </span>
-      <code id="numPeers">0 peers</code>.
+    <div class="row">
+      <div id="progressBar" style="display:none"></div>
+      <!-- The video player will be added here -->
     </div>
-    <div>
-      <code id="downloaded"></code>
-      of <code id="total"></code>
-      — <span id="remaining"></span><br/>
-      &#x2198;<code id="downloadSpeed">0 b/s</code>
-      / &#x2197;<code id="uploadSpeed">0 b/s</code>
+    <!-- Statistics -->
+    <div class="row">
+      <div id="status" style="display:none">
+        <div>
+          <span class="show-leech">Downloading </span>
+          <span class="show-seed">Seeding </span>
+          <code>
+            <!-- Informative link to the torrent file -->
+            <a id="torrentLink"></a>
+          </code>
+          <span class="show-leech"> from </span>
+          <span class="show-seed"> to </span>
+          <code id="numPeers">0 peers</code>.
+        </div>
+        <div>
+          <code id="downloaded"></code>
+          of <code id="total"></code>
+          — <span id="remaining"></span><br/>
+          &#x2198;<code id="downloadSpeed">0 b/s</code>
+          / &#x2197;<code id="uploadSpeed">0 b/s</code>
+        </div>
+      </div>
     </div>
   </div>
 </div>
