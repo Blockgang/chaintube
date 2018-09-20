@@ -117,23 +117,17 @@ function list_tx_results(tx,confirmed){
 
     input_data = '"' + data[0] + '","' + data[1] + '","' + tx.senders[0].a + '"'
     td_play.innerHTML = "<button class='play_button' onclick='play(" + input_data + ");'><img src='icons/icons8-play-button-48.png'></button>";
-  }else{
-    td_6a_magnethash.innerHTML = "-";
-    td_6a_title.innerHTML = "-";
-    td_6a_type.innerHTML = "-";
-    td_play.innerHTML = "<img src='icons/icons8-close-window-48.png'>";
 
+    tr.appendChild(td_play);
+    tr.appendChild(td_txid);
+    tr.appendChild(td_6a_title);
+    // tr.appendChild(td_6a_type);
+    // tr.appendChild(td_6a_magnethash);
+    // tr.appendChild(td_sender);
+    // tr.appendChild(td_blockheight);
+
+    document.getElementById('bitdb_output').appendChild(tr);
   }
-
-  tr.appendChild(td_play);
-  tr.appendChild(td_txid);
-  tr.appendChild(td_6a_title);
-  tr.appendChild(td_6a_type);
-  tr.appendChild(td_6a_magnethash);
-  tr.appendChild(td_sender);
-  tr.appendChild(td_blockheight);
-
-  document.getElementById('bitdb_output').appendChild(tr);
 };
 
 function get_video_data(hash,title,sender){
