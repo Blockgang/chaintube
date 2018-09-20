@@ -18,8 +18,11 @@ h4 {
     font-weight: 400;
     margin-bottom: 30px;
 }
+video {
+    width: 100%;
+}
 .form-control {
-  width: 50%;
+    width: 50%;
 }
 .jumbotron {
     background-color: #f4511e;
