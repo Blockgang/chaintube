@@ -21,6 +21,11 @@ h4 {
 video {
     width: 100%;
 }
+
+.play_button{
+    background: transparent;
+    border: 0px
+}
 .form-control {
     width: 50%;
 }

@@ -26,16 +26,15 @@ function check_data(data){
   return [hash,title,type]
 }
 
-function play(hash,title){
+function play(hash,title,sender){
   console.log(hash);
   console.log(title);
-  download_torrent(hash,title);
+  download_torrent(hash,title,sender);
 }
 
 
 function bitdb_get_magnetlinks(limit) {
   var search_string = document.getElementById('search').value
-  console.log(limit, search_string);
   var query = {
     request: {
       encoding: {
@@ -116,8 +115,8 @@ function list_tx_results(tx,confirmed){
     td_6a_title.innerHTML = data[1];
     td_6a_type.innerHTML = data[2];
 
-    input_data = '"' + data[0] + '","' + data[1] + '"'
-    td_play.innerHTML = "<a target='_blank' onclick='play(" + input_data + ");'><img src='icons/icons8-circled-play-48.png'></a>";
+    input_data = '"' + data[0] + '","' + data[1] + '","' + tx.senders[0].a + '"'
+    td_play.innerHTML = "<button class='play_button' onclick='play(" + input_data + ");'><img src='icons/icons8-play-button-48.png'></button>";
   }else{
     td_6a_magnethash.innerHTML = "-";
     td_6a_title.innerHTML = "-";
@@ -137,8 +136,58 @@ function list_tx_results(tx,confirmed){
   document.getElementById('bitdb_output').appendChild(tr);
 };
 
+function get_video_data(hash,title,sender){
+  // Insert Title
+  document.getElementById('video_title').innerHTML = title
 
-function download_torrent(hash,title){
+  var query = {
+    request: {
+      encoding: {
+        b1: "hex"
+      },
+      find: {
+        b1: { "$in": ["e902"] },
+        s2: {
+          "$regex": hash, "$options": "i"
+        },
+        'senders.a' :  {
+          "$in": [sender]
+        }
+      },
+      project: {
+        b0:1 ,b1: 1, s2: 1, tx: 1, block_index: 1, _id: 0, senders: 1
+      },
+      limit: 10
+    },
+    response: {
+      encoding: {
+        b1: "hex"
+      }
+    }
+  };
+  var b64 = btoa(JSON.stringify(query));
+  var url = "https://bitdb.network/v2/q/" + b64;
+
+  var header = {
+    headers: { key: "qz6qzfpttw44eqzqz8t2k26qxswhff79ng40pp2m44" }
+  };
+
+  fetch(url, header).then(function(r) {
+    return r.json()
+  }).then(function(r) {
+
+    for(i in r['confirmed']){
+      var tx = r['confirmed'][i];
+      console.log(tx.s2);
+      var p = document.createElement('p');
+      p.innerHTML = tx.s2
+      document.getElementById('video_description').appendChild(p)
+    };
+
+  })
+}
+
+function download_torrent(hash,title,sender){
   var torrentId = "magnet:?xt=urn:btih:" + hash + "&tr=udp://explodie.org:6969&tr=udp://tracker.coppersurfer.tk:6969&tr=udp://tracker.empire-js.us:1337&tr=udp://tracker.leechers-paradise.org:6969&tr=udp://tracker.opentrackr.org:1337&tr=wss://tracker.openwebtorrent.com"
   // var torrentId = "magnet:?xt=urn:btih:" + hash + "&tr=udp://explodie.org:6969&tr=udp://tracker.coppersurfer.tk:6969&tr=udp://tracker.empire-js.us:1337&tr=udp://tracker.leechers-paradise.org:6969&tr=udp://tracker.opentrackr.org:1337&tr=wss://tracker.openwebtorrent.com&as=https://seed28.bitchute.com/ObwN8WgxyInB/9mZvVimJmlKD.mp4&xs=https://www.bitchute.com/torrent/ObwN8WgxyInB/9mZvVimJmlKD.webtorrent"
 
@@ -159,6 +208,9 @@ function download_torrent(hash,title){
 
     // insert data
     document.getElementById('torrentLink').innerHTML = torrentId
+    // Video Data from Blockchain
+    get_video_data(hash,title,sender);
+
     // show divs
     document.getElementById('status').style.display = "block";
     document.getElementById('progressBar').style.display = "block";
