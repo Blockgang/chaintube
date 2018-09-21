@@ -73,7 +73,7 @@ function bitdb_get_magnetlinks(limit) {
     console.log(r)
     document.getElementById('bitdb_output').innerHTML = ""
 
-    document.getElementById('bitdb_output_table').style.display = "table-row"
+    document.getElementById('bitdb_output_container').style.display = "block"
 
 
     if(r['confirmed'].length != 0){
@@ -208,8 +208,7 @@ function download_torrent(hash,title,sender){
     get_video_data(hash,title,sender);
 
     // show divs
-    document.getElementById('status').style.display = "block";
-    document.getElementById('progressBar').style.display = "block";
+    document.getElementById('video_output_container').style.display = "block";
 
     // Torrents can contain many files. Let's use the .mp4 file
     var file = torrent.files.find(function (file) {

@@ -4,7 +4,7 @@ body {
     color: #818181;
 }
 
-h1 {
+.home-title h1 {
     font-size: 32px;
     text-align: center;
     text-transform: uppercase;
@@ -13,16 +13,7 @@ h1 {
     margin-bottom: 20px;
 }
 
-h2 {
-    font-size: 24px;
-    text-align: center;
-    text-transform: uppercase;
-    color: #656565;
-    font-weight: 200;
-    margin-bottom: 20px;
-}
-
-h3 {
+.home-title h2 {
     font-size: 18px;
     text-align: center;
     text-transform: uppercase;
@@ -31,27 +22,24 @@ h3 {
     margin-bottom: 20px;
 }
 
-h4 {
-    font-size: 19px;
-    line-height: 1.375em;
-    color: #303030;
-    font-weight: 200;
-    margin-bottom: 20px;
-}
 video {
     width: 100%;
 }
 
+.home{
+  padding-top: 30px;
+}
+
 .home-1{
-  padding-bottom: 30px;
+  padding-bottom: 0px;
 }
 
 .home-2{
-  padding-bottom: 30px;
+  padding-bottom: 0px;
 }
 
 .home-search{
-  padding-bottom: 10px;
+  padding-bottom: 20px;
 }
 
 .signup-login{

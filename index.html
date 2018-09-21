@@ -43,8 +43,6 @@
         <li><a href="#new">NEW</a></li>
         <li><a href="#videos">VIDEOS</a></li>
         <li><a href="#channels">CHANNELS</a></li>
-        <!-- <li><a href="#protocol">PROTOCOL</a></li> -->
-        <!-- <li><a href="#about">ABOUT</a></li> -->
       </ul>
     </div>
   </div>
@@ -66,49 +64,53 @@
 <!-- Container (Dashboard Section) -->
 <div id="Dashboard" class="container-fluid">
   <div class="container" id="welcome">
-    <div class="col-md-8 col-md-offset-2">
-      <h1>Welcome to Chaintube</h1>
-      <h3>Your Onchain Video Platform</h3>
-    </div>
-    <div class="col-md-6 home-1">
-      <p class="signup-login">
-        <a class="btn btn-success btn-sm" href="#Signup">Signup</a>
-        or
-        <a class="btn btn-primary btn-sm" href="#Login">Login</a>
-      </p>
-      <div class="input-group home-search">
-        <input id="search" type="text" class="form-control" placeholder="Beethoven" required>
-        <div class="input-group-btn">
-          <a class="btn btn-danger" onclick="bitdb_get_magnetlinks(100);"><span class="glyphicon glyphicon-search"></span></a>
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2 home-title">
+          <h1>Welcome to Chaintube</h1>
+          <h2>Your Onchain Video Platform</h2>
         </div>
       </div>
-    </div>
-    <div class="col-md-6 home-1">
-      <ul class="list-group">
-        <li class="list-group-item"><span class="glyphicon glyphicon-plus-sign"></span> Add Videos</li>
-        <li class="list-group-item"><span class="glyphicon glyphicon-play"></span> Search Videos on the Blockchain</li>
-        <li class="list-group-item"><span class="glyphicon glyphicon-ok-sign"></span> Control your private key</li>
-        <li class="list-group-item"><span class="glyphicon glyphicon-ban-circle"></span> Uncensorable</li>
-        <li class="list-group-item"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> All using the BCH blockchain</li>
-      </ul>
-    </div>
+      <div class="row home">
+        <div class="col-md-6 home-1">
+          <p class="signup-login">
+            <a class="btn btn-success btn-sm" href="#Signup">Signup</a>
+            or
+            <a class="btn btn-primary btn-sm" href="#Login">Login</a>
+          </p>
+          <div class="input-group home-search">
+            <input id="search" type="text" class="form-control" placeholder="Beethoven" required>
+            <div class="input-group-btn">
+              <a class="btn btn-danger" onclick="bitdb_get_magnetlinks(100);"><span class="glyphicon glyphicon-search"></span></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 home-1">
+          <ul class="list-group">
+            <li class="list-group-item"><span class="glyphicon glyphicon-plus-sign"></span> Add Videos</li>
+            <li class="list-group-item"><span class="glyphicon glyphicon-play"></span> Search Videos on the Blockchain</li>
+            <li class="list-group-item"><span class="glyphicon glyphicon-ok-sign"></span> Control your private key</li>
+            <li class="list-group-item"><span class="glyphicon glyphicon-ban-circle"></span> Uncensorable</li>
+            <li class="list-group-item"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> All using the BCH blockchain</li>
+          </ul>
+        </div>
+      </div>
   </div>
   <!-- Video Output -->
-  <div class="container video-output">
+  <div id="video_output_container" class="container video-output" style="display:none">
     <div class="container" id="output">
       <h2 id="video_title"></h2>
       <div class="row" id="video_description">
         <!-- Video description -->
       </div>
       <div class="row">
-        <div id="progressBar" style="display:none"></div>
+        <div id="progressBar"></div>
         <!-- The video player will be added here -->
       </div>
     </div>
     <div class="container" id="statistics">
       <!-- Statistics -->
       <div class="row">
-        <div id="status" style="display:none">
+        <div id="status">
           <div>
             <span class="show-leech">Downloading </span>
             <span class="show-seed">Seeding </span>
@@ -133,17 +135,18 @@
       </div>
     </div>
   </div>
-  <!-- Search Output -->
-  <div class="container">
-      <table class="table" id="bitdb_output_table" style="display:none">
-        <tbody id="bitdb_output">
-        </tbody>
-      </table>
-  </div>
+</div>
+
+<!-- Search Output -->
+<div class="container-fluid bg-grey" id="bitdb_output_container" style="display:none">
+    <table class="table" id="bitdb_output_table">
+      <tbody id="bitdb_output">
+      </tbody>
+    </table>
 </div>
 
 
-<div class="container-fluid bg-grey">
+<div class="container-fluid">
   <div class="col-md-4 col-md-offset-4">
     <h2>Write Data into Blockchain:</h2><br>
     <!-- Data Input -->
