@@ -104,7 +104,7 @@ function list_tx_results(tx,confirmed){
   var td_blockheight = document.createElement('td');
   var td_play = document.createElement('td');
 
-  td_txid.innerHTML = "<a target='_blank' href='https://blockchair.com/bitcoin-cash/transaction/"+ tx.tx +"'>Tx</a>";
+  td_txid.innerHTML = "<a class='result-tx-link' target='_blank' href='https://blockchair.com/bitcoin-cash/transaction/"+ tx.tx +"'><span class='glyphicon glyphicon-th'></span></a>";
   console.log(tx)
   td_sender.innerHTML = tx.senders[0].a
   td_blockheight.innerHTML = (confirmed) ? (tx.block_index) : ("unconfirmed")
@@ -116,11 +116,12 @@ function list_tx_results(tx,confirmed){
     td_6a_type.innerHTML = data[2];
 
     input_data = '"' + data[0] + '","' + data[1] + '","' + tx.senders[0].a + '"'
-    td_play.innerHTML = "<button class='play_button' onclick='play(" + input_data + ");'><img src='icons/icons8-play-button-48.png'></button>";
+    td_play.innerHTML = "<button class='play_button' onclick='play(" + input_data + ");'><span class='glyphicon glyphicon-play-circle'></span></button>";
 
-    tr.appendChild(td_play);
     tr.appendChild(td_txid);
+    tr.appendChild(td_play);
     tr.appendChild(td_6a_title);
+
     // tr.appendChild(td_6a_type);
     // tr.appendChild(td_6a_magnethash);
     // tr.appendChild(td_sender);
