@@ -94,39 +94,41 @@
     </div>
   </div>
   <!-- Video Output -->
-  <div class="container" id="output">
-    <h2 id="video_title"></h2>
-    <div id="video_description">
-      <!-- Video description -->
+  <div class="container video-output">
+    <div class="container" id="output">
+      <h2 id="video_title"></h2>
+      <div class="row" id="video_description">
+        <!-- Video description -->
+      </div>
+      <div class="row">
+        <div id="progressBar" style="display:none"></div>
+        <!-- The video player will be added here -->
+      </div>
     </div>
-    <div class="row">
-      <div id="progressBar" style="display:none"></div>
-      <!-- The video player will be added here -->
-    </div>
-  </div>
-  <div class="container" id="statistics">
-    <!-- Statistics -->
-    <div class="row">
-      <div id="status" style="display:none">
-        <div>
-          <span class="show-leech">Downloading </span>
-          <span class="show-seed">Seeding </span>
-          <br>
-          <code>
-            <!-- Informative link to the torrent file -->
-            <a id="torrentLink"></a>
-          </code>
-          <br>
-          <span class="show-leech"> from </span>
-          <span class="show-seed"> to </span>
-          <code id="numPeers">0 peers</code>.
-        </div>
-        <div>
-          <code id="downloaded"></code>
-          of <code id="total"></code>
-          — <span id="remaining"></span>
-          &#x2198;<code id="downloadSpeed">0 b/s</code>
-          / &#x2197;<code id="uploadSpeed">0 b/s</code>
+    <div class="container" id="statistics">
+      <!-- Statistics -->
+      <div class="row">
+        <div id="status" style="display:none">
+          <div>
+            <span class="show-leech">Downloading </span>
+            <span class="show-seed">Seeding </span>
+            <br>
+            <code>
+              <!-- Informative link to the torrent file -->
+              <a id="torrentLink"></a>
+            </code>
+            <br>
+            <span class="show-leech"> from </span>
+            <span class="show-seed"> to </span>
+            <code id="numPeers">0 peers</code>.
+          </div>
+          <div>
+            <code id="downloaded"></code>
+            of <code id="total"></code>
+            — <span id="remaining"></span>
+            &#x2198;<code id="downloadSpeed">0 b/s</code>
+            / &#x2197;<code id="uploadSpeed">0 b/s</code>
+          </div>
         </div>
       </div>
     </div>
