@@ -16,7 +16,6 @@ body {
 .home-title h2 {
     font-size: 18px;
     text-align: center;
-    text-transform: uppercase;
     color: #656565;
     font-weight: 200;
     margin-bottom: 20px;
@@ -26,24 +25,13 @@ video {
     width: 100%;
 }
 
-.home{
-  padding-top: 30px;
-}
-
-.home-1{
-  padding-bottom: 0px;
-}
-
-.home-2{
-  padding-bottom: 0px;
-}
-
 .home-search{
   padding-bottom: 20px;
 }
 
 .signup-login{
   padding-bottom: 10px;
+  text-align: center;
 }
 
 .result-tx-link{
@@ -71,6 +59,7 @@ video {
 }
 .container-fluid {
     padding: 60px 50px;
+    padding-bottom: 10px;
 }
 .bg-grey {
     background-color: #f6f6f6;

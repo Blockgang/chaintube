@@ -63,37 +63,33 @@
 
 <!-- Container (Dashboard Section) -->
 <div id="Dashboard" class="container-fluid">
-  <div class="container" id="welcome">
-      <div class="row">
-        <div class="col-md-8 col-md-offset-2 home-title">
-          <h1>Welcome to Chaintube</h1>
-          <h2>Your Onchain Video Platform</h2>
-        </div>
-      </div>
-      <div class="row home">
-        <div class="col-md-6 home-1">
-          <p class="signup-login">
-            <a class="btn btn-success btn-sm" href="#Signup">Signup</a>
-            or
-            <a class="btn btn-primary btn-sm" href="#Login">Login</a>
-          </p>
-          <div class="input-group home-search">
-            <input id="search" type="text" class="form-control" placeholder="Beethoven" required>
-            <div class="input-group-btn">
-              <a class="btn btn-danger" onclick="bitdb_get_magnetlinks(100);"><span class="glyphicon glyphicon-search"></span></a>
-            </div>
+    <div class="row">
+      <div class="col-md-3 col-md-offset-4 home-title">
+        <h1>Welcome to Chaintube</h1>
+        <h2>Your Onchain Video Platform</h2>
+
+        <p class="signup-login">
+          <a class="btn btn-success btn-sm" href="#Signup">Signup</a>
+          or
+          <a class="btn btn-primary btn-sm" href="#Login">Login</a>
+        </p>
+        <div class="input-group home-search">
+          <input id="search" type="text" class="form-control" placeholder="Beethoven" required>
+          <div class="input-group-btn">
+            <a class="btn btn-danger" onclick="bitdb_get_magnetlinks(100);"><span class="glyphicon glyphicon-search"></span></a>
           </div>
         </div>
-        <div class="col-md-6 home-1">
-          <ul class="list-group">
-            <li class="list-group-item"><span class="glyphicon glyphicon-plus-sign"></span> Add Videos</li>
-            <li class="list-group-item"><span class="glyphicon glyphicon-play"></span> Search Videos on the Blockchain</li>
-            <li class="list-group-item"><span class="glyphicon glyphicon-ok-sign"></span> Control your private key</li>
-            <li class="list-group-item"><span class="glyphicon glyphicon-ban-circle"></span> Uncensorable</li>
-            <li class="list-group-item"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> All using the BCH blockchain</li>
-          </ul>
-        </div>
       </div>
+      <div class="col-md-3 col-md-offset-2">
+        <ul class="list-group">
+          <li class="list-group-item"><span class="glyphicon glyphicon-plus-sign"></span> Add Videos</li>
+          <li class="list-group-item"><span class="glyphicon glyphicon-play"></span> Search Videos on the Blockchain</li>
+          <li class="list-group-item"><span class="glyphicon glyphicon-ok-sign"></span> Control your private key</li>
+          <li class="list-group-item"><span class="glyphicon glyphicon-ban-circle"></span> Uncensorable</li>
+          <li class="list-group-item"><span class="glyphicon glyphicon-bitcoin" aria-hidden="true"></span> All using the BCH blockchain</li>
+        </ul>
+      </div>
+    </div>
   </div>
   <!-- Video Output -->
   <div id="video_output_container" class="container video-output" style="display:none">
@@ -213,6 +209,9 @@ $(document).ready(function(){
     });
   });
 })
+</script>
+<script>
+  bitdb_get_magnetlinks(100);
 </script>
 
 </body>
