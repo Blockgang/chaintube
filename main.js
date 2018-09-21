@@ -104,7 +104,7 @@ function list_tx_results(tx,confirmed){
   var td_blockheight = document.createElement('td');
   var td_play = document.createElement('td');
 
-  td_txid.innerHTML = "<a href='https://blockchair.com/bitcoin-cash/transaction/"+ tx.tx +"'>Tx</a>";
+  td_txid.innerHTML = "<a target='_blank' href='https://blockchair.com/bitcoin-cash/transaction/"+ tx.tx +"'>Tx</a>";
   console.log(tx)
   td_sender.innerHTML = tx.senders[0].a
   td_blockheight.innerHTML = (confirmed) ? (tx.block_index) : ("unconfirmed")
