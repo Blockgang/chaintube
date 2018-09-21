@@ -22,6 +22,22 @@ video {
     width: 100%;
 }
 
+.home-1{
+  padding-bottom: 30px;
+}
+
+.home-2{
+  padding-bottom: 30px;
+}
+
+.home-search{
+  padding-bottom: 10px;
+}
+
+.signup-login{
+  padding-bottom: 10px;
+}
+
 .table tbody tr td {
   border-bottom: 1px solid #e0e0e0;
   border-top: 0px;
