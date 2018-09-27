@@ -11,15 +11,15 @@ https://icons8.com/icon/set/error/all
 Prefix: 0xe901 (Main)
 ```
 
-# OP_RETURN 0xe901 <magnet-hash>|type|<titel>
+# OP_RETURN 0xe901|<hash-type>|<magnet/ipfs-hash>|<data-type>|<titel>
 
-OP_RETURN 0xe901 08ada5a7a6183aae1e09d831df6748d566095a10|mp4|DAS IST DER TITEL DES VIEOS
+OP_RETURN 0xe901|magnet|08ada5a7a6183aae1e09d831df6748d566095a10|mp4|DAS IST DER TITEL DES VIEOS
 
 ```
 
 Prefix: 0xe902 (Description)
 ```
-# OP_RETURN 0xe902 <magnet-hash>|<chunk-nr>|<data>
+# OP_RETURN 0xe902 <hash>|<chunk-nr>|<data>
 
 OP_RETURN 0xe902 08ada5a7a6183aae1e09d831df6748d566095a10|0|Erster Teil der Beschreibung
 
