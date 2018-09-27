@@ -1,1 +1,4 @@
- tests
+requests ausführen, schreibt in die mysql db
+127.0.0.1 / root / 123456
+
+(nur einmal ausführen oder tabele truncaten)
