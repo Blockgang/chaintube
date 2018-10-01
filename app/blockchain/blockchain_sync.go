@@ -61,13 +61,13 @@ type Id struct {
 func insertIntoMysql(TxId string, TxB1 string, S2Hash string, S2Type string, S2Title string) bool {
 	fmt.Println(TxId, TxB1, S2Hash, S2Type, S2Title)
 	//Mysql
-	db, err := sql.Open("mysql", "root:123456@tcp(127.0.0.1:3306)/transactions")
+	db, err := sql.Open("mysql", "root:123456@tcp(127.0.0.1:3306)/theca")
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer db.Close()
 
-	sql_query := "INSERT INTO opreturn VALUES(?,?,?,?,?)"
+	sql_query := "INSERT INTO transactions VALUES(?,?,?,?,?)"
 	insert, err := db.Prepare(sql_query)
 	//insert, err := db.Query(sql_query)
 	defer insert.Close()
