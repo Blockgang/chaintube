@@ -64,7 +64,11 @@ func insertIntoMysql(TxId string, prefix string, hash string, data_type string, 
 func main() {
 	var q Query
 	var ScannerBlockHeight uint32
+	var LastScannerBlockHeight uint32
 	ScannerBlockHeight = 550000
+	LastScannerBlockHeight = 0
+
+	fmt.Println("Start ScannerBlockHeight: >", ScannerBlockHeight)
 
 	loop := true
 	for loop {
@@ -97,7 +101,11 @@ func main() {
 
 		query = fmt.Sprintf(query, ScannerBlockHeight)
 
-		fmt.Println("ScannerHeight:", ScannerBlockHeight)
+		if LastScannerBlockHeight != ScannerBlockHeight {
+			fmt.Println("ScannerHeight: >", ScannerBlockHeight)
+			LastScannerBlockHeight = ScannerBlockHeight
+		}
+
 		//url encoded query : blocksize greater than 550'000
 		b64_query := base64.StdEncoding.EncodeToString([]byte(query))
 		url := "https://bitdb.network/q/" + b64_query
