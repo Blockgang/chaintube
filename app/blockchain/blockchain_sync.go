@@ -122,7 +122,7 @@ func main() {
 			fmt.Println(TxId, Prefix, Hash, Datatype, Title, BlockTimestamp)
 			insert := insertIntoMysql(TxId, Prefix, Hash, Datatype, Title, BlockTimestamp)
 			if insert != true {
-				fmt.Println("Insert failed!")
+				fmt.Println("Insert failed !")
 			} else {
 				fmt.Println("Insert OK")
 			}
