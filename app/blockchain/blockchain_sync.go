@@ -119,7 +119,6 @@ func main() {
 		}
 
 		if len(Prefix) != 0 && len(Hash) > 20 && len(Datatype) > 2 {
-			fmt.Println(TxId, Prefix, Hash, Datatype, Title, BlockTimestamp)
 			insert := insertIntoMysql(TxId, Prefix, Hash, Datatype, Title, BlockTimestamp)
 			if insert != true {
 				fmt.Println("Insert failed ! (error or duplicated db entry)")
