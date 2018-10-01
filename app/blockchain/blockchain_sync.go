@@ -67,7 +67,7 @@ func insertIntoMysql(TxId string, TxB1 string, S2Hash string, S2Type string, S2T
 	}
 	defer db.Close()
 
-	sql_query := "INSERT INTO transactions VALUES(?,?,?,?,?)"
+	sql_query := "INSERT INTO opreturn VALUES(?,?,?,?,?)"
 	insert, err := db.Prepare(sql_query)
 	//insert, err := db.Query(sql_query)
 	defer insert.Close()
