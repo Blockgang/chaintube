@@ -32,6 +32,7 @@ var query = `{
       "out.s3": 1,
       "out.s4": 1,
       "tx.h": 1,
+			"blk.t": 1,
       "_id": 0
     }
   }
@@ -45,6 +46,7 @@ type Query struct {
 type Transaction struct {
 	Tx  Id    `json:"tx"`
 	Out []Sub `json:"out"`
+	Blk Ts    `json:"blk"`
 }
 
 type Sub struct {
@@ -54,12 +56,16 @@ type Sub struct {
 	S4 string `json:"s4"`
 }
 
+type Ts struct {
+	T int64 `json:"t"`
+}
+
 type Id struct {
 	H string `json:"h"`
 }
 
-func insertIntoMysql(TxId string, prefix string, hash string, data_type string, title string) bool {
-	fmt.Println(TxId, prefix, hash, data_type, title)
+func insertIntoMysql(TxId string, prefix string, hash string, data_type string, title string, blocktimestamp int64) bool {
+	fmt.Println(TxId, prefix, hash, data_type, title, blocktimestamp)
 	//Mysql
 	db, err := sql.Open("mysql", "root:123456@tcp(127.0.0.1:3306)/theca")
 	if err != nil {
@@ -67,12 +73,12 @@ func insertIntoMysql(TxId string, prefix string, hash string, data_type string, 
 	}
 	defer db.Close()
 
-	sql_query := "INSERT INTO opreturn VALUES(?,?,?,?,?)"
+	sql_query := "INSERT INTO opreturn VALUES(?,?,?,?,?,?)"
 	insert, err := db.Prepare(sql_query)
 	//insert, err := db.Query(sql_query)
 	defer insert.Close()
 
-	rows, err := insert.Query(TxId, prefix, hash, data_type, title)
+	rows, err := insert.Query(TxId, prefix, hash, data_type, title, blocktimestamp)
 	defer rows.Close()
 
 	if err != nil {
@@ -102,6 +108,7 @@ func main() {
 	for i := range q.Confirmed {
 		TxId := q.Confirmed[i].Tx.H
 		txOuts := q.Confirmed[i].Out
+		BlockTimestamp := q.Confirmed[i].Blk.T
 		var Prefix string
 		var Hash string
 		var Datatype string
@@ -116,8 +123,8 @@ func main() {
 		}
 
 		if len(Prefix) != 0 && len(Hash) > 20 && len(Datatype) > 2 {
-			fmt.Println(TxId, Prefix, Hash, Datatype, Title)
-			insertIntoMysql(TxId, Prefix, Hash, Datatype, Title)
+			fmt.Println(TxId, Prefix, Hash, Datatype, Title, BlockTimestamp)
+			insertIntoMysql(TxId, Prefix, Hash, Datatype, Title, BlockTimestamp)
 		}
 
 		// re := `(\S{20,50})\|(\S{4})\|(.*)`
