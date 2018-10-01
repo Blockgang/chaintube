@@ -8,35 +8,10 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"time"
 
 	_ "github.com/go-sql-driver/mysql"
 )
-
-var query = `{
-  "v": 2,
-  "e": { "out.b1": "hex"  },
-  "q": {
-    "find": {
-      "out.b1": "e901",
-      "out.b0": {
-        "op": 106
-      },
-      "blk.i": {
-        "$gte" : 550000
-      }
-
-    },
-    "project": {
-      "out.b1": 1,
-      "out.s2": 1,
-      "out.s3": 1,
-      "out.s4": 1,
-      "tx.h": 1,
-			"blk.t": 1,
-      "_id": 0
-    }
-  }
-}`
 
 type Query struct {
 	Unconfirmed []Transaction `json:"unconfirmed"`
@@ -46,7 +21,7 @@ type Query struct {
 type Transaction struct {
 	Tx  Id    `json:"tx"`
 	Out []Sub `json:"out"`
-	Blk Ts    `json:"blk"`
+	Blk Info  `json:"blk"`
 }
 
 type Sub struct {
@@ -56,16 +31,17 @@ type Sub struct {
 	S4 string `json:"s4"`
 }
 
-type Ts struct {
-	T int64 `json:"t"`
+type Info struct {
+	T uint32 `json:"t"`
+	I uint32 `json:"i"`
 }
 
 type Id struct {
 	H string `json:"h"`
 }
 
-func insertIntoMysql(TxId string, prefix string, hash string, data_type string, title string, blocktimestamp int64) bool {
-	fmt.Println("==> ", blocktimestamp, TxId, prefix, hash, data_type, title)
+func insertIntoMysql(TxId string, prefix string, hash string, data_type string, title string, blocktimestamp uint32, blockheight uint32) bool {
+	fmt.Println("==> ", blockheight, blocktimestamp, TxId, prefix, hash, data_type, title)
 	//Mysql
 	db, err := sql.Open("mysql", "root:123456@tcp(127.0.0.1:3306)/theca")
 	if err != nil {
@@ -73,11 +49,11 @@ func insertIntoMysql(TxId string, prefix string, hash string, data_type string, 
 	}
 	defer db.Close()
 
-	sql_query := "INSERT INTO opreturn VALUES(?,?,?,?,?,?)"
+	sql_query := "INSERT INTO opreturn VALUES(?,?,?,?,?,?,?)"
 	insert, err := db.Prepare(sql_query)
 	defer insert.Close()
 
-	_, err = insert.Query(TxId, prefix, hash, data_type, title, blocktimestamp)
+	_, err = insert.Query(TxId, prefix, hash, data_type, title, blocktimestamp, blockheight)
 	if err != nil {
 		return false
 	}
@@ -86,46 +62,88 @@ func insertIntoMysql(TxId string, prefix string, hash string, data_type string, 
 
 func main() {
 	var q Query
-	//url encoded query : blocksize greater than 550'000
-	b64_query := base64.StdEncoding.EncodeToString([]byte(query))
-	url := "https://bitdb.network/q/" + b64_query
-	client := &http.Client{}
-	req, _ := http.NewRequest("GET", url, nil)
-	req.Header.Set("key", "qz6qzfpttw44eqzqz8t2k26qxswhff79ng40pp2m44")
-	res, _ := client.Do(req)
+	var ScannerBlockHeight uint32
+	ScannerBlockHeight = 550000
 
-	body, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		log.Fatalln(err)
-	}
+	loop := true
+	for loop {
+		var query = `{
+		  "v": 2,
+		  "e": { "out.b1": "hex"  },
+		  "q": {
+		    "find": {
+		      "out.b1": "e901",
+		      "out.b0": {
+		        "op": 106
+		      },
+		      "blk.i": {
+		        "$gte" : %d
+		      }
 
-	json.Unmarshal(body, &q)
+		    },
+		    "project": {
+		      "out.b1": 1,
+		      "out.s2": 1,
+		      "out.s3": 1,
+		      "out.s4": 1,
+		      "tx.h": 1,
+					"blk.t": 1,
+					"blk.i": 1,
+		      "_id": 0
+		    }
+		  }
+		}`
 
-	for i := range q.Confirmed {
-		TxId := q.Confirmed[i].Tx.H
-		txOuts := q.Confirmed[i].Out
-		BlockTimestamp := q.Confirmed[i].Blk.T
-		var Prefix string
-		var Hash string
-		var Datatype string
-		var Title string
-		for a := range txOuts {
-			if txOuts[a].B1 == "e901" {
-				Prefix = txOuts[a].B1
-				Hash = txOuts[a].S2
-				Datatype = txOuts[a].S3
-				Title = txOuts[a].S4
-			}
+		query = fmt.Sprintf(query, ScannerBlockHeight)
+
+		fmt.Println(query)
+		//url encoded query : blocksize greater than 550'000
+		b64_query := base64.StdEncoding.EncodeToString([]byte(query))
+		url := "https://bitdb.network/q/" + b64_query
+		client := &http.Client{}
+		req, _ := http.NewRequest("GET", url, nil)
+		req.Header.Set("key", "qz6qzfpttw44eqzqz8t2k26qxswhff79ng40pp2m44")
+
+		res, _ := client.Do(req)
+
+		body, err := ioutil.ReadAll(res.Body)
+		if err != nil {
+			log.Fatalln(err)
 		}
 
-		if len(Prefix) != 0 && len(Hash) > 20 && len(Datatype) > 2 {
-			insert := insertIntoMysql(TxId, Prefix, Hash, Datatype, Title, BlockTimestamp)
-			if insert != true {
-				fmt.Println("Insert failed ! (error or duplicated db entry)")
-			} else {
-				fmt.Println("Insert OK")
+		json.Unmarshal(body, &q)
+
+		for i := range q.Confirmed {
+			TxId := q.Confirmed[i].Tx.H
+			txOuts := q.Confirmed[i].Out
+			BlockTimestamp := q.Confirmed[i].Blk.T
+			BlockHeight := q.Confirmed[i].Blk.I
+			var Prefix string
+			var Hash string
+			var Datatype string
+			var Title string
+			for a := range txOuts {
+				if txOuts[a].B1 == "e901" {
+					Prefix = txOuts[a].B1
+					Hash = txOuts[a].S2
+					Datatype = txOuts[a].S3
+					Title = txOuts[a].S4
+				}
+			}
+			if BlockHeight > ScannerBlockHeight {
+				ScannerBlockHeight = BlockHeight + 1
+			}
+
+			if len(Prefix) != 0 && len(Hash) > 20 && len(Datatype) > 2 {
+				insert := insertIntoMysql(TxId, Prefix, Hash, Datatype, Title, BlockTimestamp, BlockHeight)
+				if insert != true {
+					fmt.Println("Insert failed ! (error or duplicated db entry)")
+				} else {
+					fmt.Println("Insert OK")
+				}
 			}
 		}
+		time.Sleep(5 * time.Second)
 	}
 
 }
