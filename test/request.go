@@ -25,6 +25,8 @@ import (
 //     "project": {
 //       "out.b1": 1,
 //       "out.s2": 1,
+//       "out.s3": 1,
+//       "out.s4": 1,
 //       "tx.h": 1,
 //       "_id": 0
 //     }
@@ -76,7 +78,7 @@ func insertIntoMysql(TxId string, TxB1 string, S2Hash string, S2Type string, S2T
 
 func main() {
 	var q Query
-	url := "https://bitdb.network/q/ewogICJ2IjogMiwKICAiZSI6IHsgIm91dC5iMSI6ICJoZXgiICB9LAogICJxIjogewogICAgImZpbmQiOiB7ICJvdXQuYjEiOiAiZTkwMSIsIAogICAgIm91dC5iMCI6IHsKICAgICAgICAib3AiOiAxMDYKICAgICAgfSAKICAgICAgCiAgICB9LAogICAgInByb2plY3QiOiB7CiAgICAgICJvdXQuYjEiOiAxLAogICAgICAib3V0LnMyIjogMSwKICAgICAgInR4LmgiOiAxLAogICAgICAiX2lkIjogMAogICAgfQogIH0KfQ=="
+	url := "https://bitdb.network/q/ewogICJ2IjogMiwKICAiZSI6IHsgIm91dC5iMSI6ICJoZXgiICB9LAogICJxIjogewogICAgImZpbmQiOiB7ICJvdXQuYjEiOiAiZTkwMSIsCiAgICAib3V0LmIwIjogewogICAgICAgICJvcCI6IDEwNgogICAgICB9CgogICAgfSwKICAgICJwcm9qZWN0IjogewogICAgICAib3V0LmIxIjogMSwKICAgICAgIm91dC5zMiI6IDEsCiAgICAgICJvdXQuczMiOiAxLAogICAgICAib3V0LnM0IjogMSwKICAgICAgInR4LmgiOiAxLAogICAgICAiX2lkIjogMAogICAgfQogIH0KfQ=="
 	client := &http.Client{}
 	req, _ := http.NewRequest("GET", url, nil)
 	req.Header.Set("key", "qz6qzfpttw44eqzqz8t2k26qxswhff79ng40pp2m44")

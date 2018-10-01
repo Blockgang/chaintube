@@ -1,34 +1,48 @@
 function send(){
   var pkey = document.getElementById('pkey').value
   var title = document.getElementById('title').value
+  var type = document.getElementById('data_type').value
   var hash = document.getElementById('hash').value
   var prefix = "0xe901"
-  var type = "0001"
-  var raw_data = hash + "|" + type + "|" + title
-  console.log(raw_data);
-  datacash.send({
-    data: [prefix, raw_data],
-    cash: { key: pkey }
-  });
+  // var raw_data = hash + "|" + type + "|" + title
+  var payload = [hash,type,title]
+  console.log(payload);
+  var tx = {
+      data: [prefix, hash,type,title],
+      cash: { key: pkey }
+    }
+  datacash.send(tx, function(err, res) {
+    console.log(res)
+  })
 }
 
-
-function check_data(data){
-  var regex = /([a-z0-9]{20,50})\|([0-9]{4})\|(.*$)/g
-  var match = regex.exec(data)
-  var title = false, hash = false, type = false
-  if(match){
-    hash = match[1];
-    type = match[2];
-    title = match[3];
-    console.log("Hash: " + hash + "Type: " + type + " Titel: " +  title);
-  }
-  return [hash,title,type]
+function check_link(link){
+  return link
 }
+
+function check_type(type){
+  return type
+}
+
+function check_title(title){
+  return title
+}
+
+// function check_data(data_s1){
+//   var regex = /([a-z0-9]{20,50})\|([0-9]{4})\|(.*$)/g
+//   var match = regex.exec(data_s1)
+//   var title = false, hash = false, type = false
+//   if(match){
+//     hash = match[1];
+//     type = match[2];
+//     title = match[3];
+//     console.log("Hash: " + hash + "Type: " + type + " Titel: " +  title);
+//   }
+//   return [hash,title,type]
+// }
 
 function play(hash,title,sender){
-  console.log(hash);
-  console.log(title);
+  console.log(hash,title);
   download_torrent(hash,title,sender);
 }
 
@@ -49,7 +63,7 @@ function bitdb_get_magnetlinks(limit) {
         // 'senders.a': "qpy3cc67n3j9rpr8c3yx3lv0qc9k2kmfyud9e485w2"
       },
       project: {
-        b0:1 ,b1: 1, s2: 1, tx: 1, block_index: 1, _id: 0, senders: 1
+        b0:1 ,b1: 1, s2: 1, s3: 1, s4: 1, tx: 1, block_index: 1, _id: 0, senders: 1
       },
       limit: limit
     },
@@ -110,13 +124,16 @@ function list_tx_results(tx,confirmed){
   td_sender.innerHTML = tx.senders[0].a
   td_blockheight.innerHTML = (confirmed) ? (tx.block_index) : ("unconfirmed")
 
-  data = check_data(tx.s2);
-  if (data[0]){
-    td_6a_magnethash.innerHTML = data[0];
-    td_6a_title.innerHTML = data[1];
-    td_6a_type.innerHTML = data[2];
+  // data = check_data(tx.s2,tx.s3,tx.s4);
+  var link = check_link(tx.s2)
+  var type = check_type(tx.s3)
+  var title = check_title(tx.s4)
+  if (link && type && title){
+    td_6a_magnethash.innerHTML = link;
+    td_6a_title.innerHTML = title;
+    td_6a_type.innerHTML = type;
 
-    input_data = '"' + data[0] + '","' + data[1] + '","' + tx.senders[0].a + '"'
+    input_data = '"' + link + '","' + title + '","' + tx.senders[0].a + '"'
     td_play.innerHTML = "<button class='result-play' onclick='play(" + input_data + ");'><span class='glyphicon glyphicon-play-circle'></span></button>";
     td_play.style.width = "15px";
 
@@ -185,8 +202,9 @@ function get_video_data(hash,title,sender){
 }
 
 function download_torrent(hash,title,sender){
-  var torrentId = "magnet:?xt=urn:btih:" + hash + "&tr=udp://explodie.org:6969&tr=udp://tracker.coppersurfer.tk:6969&tr=udp://tracker.empire-js.us:1337&tr=udp://tracker.leechers-paradise.org:6969&tr=udp://tracker.opentrackr.org:1337&tr=wss://tracker.openwebtorrent.com"
-  // var torrentId = "magnet:?xt=urn:btih:" + hash + "&tr=udp://explodie.org:6969&tr=udp://tracker.coppersurfer.tk:6969&tr=udp://tracker.empire-js.us:1337&tr=udp://tracker.leechers-paradise.org:6969&tr=udp://tracker.opentrackr.org:1337&tr=wss://tracker.openwebtorrent.com&as=https://seed28.bitchute.com/ObwN8WgxyInB/9mZvVimJmlKD.mp4&xs=https://www.bitchute.com/torrent/ObwN8WgxyInB/9mZvVimJmlKD.webtorrent"
+  var torrentId = hash + "&tr=udp://explodie.org:6969&tr=udp://tracker.coppersurfer.tk:6969&tr=udp://tracker.empire-js.us:1337&tr=udp://tracker.leechers-paradise.org:6969&tr=udp://tracker.opentrackr.org:1337&tr=wss://tracker.openwebtorrent.com"
+  // var torrentId = "magnet:?xt=urn:btih:" + hash + "&tr=udp://explodie.org:6969&tr=udp://tracker.coppersurfer.tk:6969&tr=udp://tracker.empire-js.us:1337&tr=udp://tracker.leechers-paradise.org:6969&tr=udp://tracker.opentrackr.org:1337&tr=wss://tracker.openwebtorrent.com"
+
 
   var client = new WebTorrent()
 
