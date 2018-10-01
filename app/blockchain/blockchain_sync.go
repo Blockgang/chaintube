@@ -44,7 +44,7 @@ func insertIntoMysql(TxId string, prefix string, hash string, data_type string, 
 	fmt.Println("==> ", blockheight, blocktimestamp, TxId, prefix, hash, data_type, title)
 	//Mysql
 	// db, err := sql.Open("mysql", "root:123456@tcp(127.0.0.1:3306)/theca")
-	db, err := sql.Open("mysql", "root:8drRNG8RWw9FjzeJuavbY6f9@tcp(db:3306)/theca")
+	db, err := sql.Open("mysql", "root:8drRNG8RWw9FjzeJuavbY6f9@tcp(172.18.0.5:3306)/theca")
 	if err != nil {
 		return false
 	}
