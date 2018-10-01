@@ -82,7 +82,8 @@ func insertIntoMysql(TxId string, TxB1 string, S2Hash string, S2Type string, S2T
 
 func main() {
 	var q Query
-	url := "https://bitdb.network/q/ewogICJ2IjogMiwKICAiZSI6IHsgIm91dC5iMSI6ICJoZXgiICB9LAogICJxIjogewogICAgImZpbmQiOiB7ICJvdXQuYjEiOiAiZTkwMSIsCiAgICAib3V0LmIwIjogewogICAgICAgICJvcCI6IDEwNgogICAgICB9CgogICAgfSwKICAgICJwcm9qZWN0IjogewogICAgICAib3V0LmIxIjogMSwKICAgICAgIm91dC5zMiI6IDEsCiAgICAgICJvdXQuczMiOiAxLAogICAgICAib3V0LnM0IjogMSwKICAgICAgInR4LmgiOiAxLAogICAgICAiX2lkIjogMAogICAgfQogIH0KfQ=="
+	//url encoded query : blocksize greater than 550'000
+	url := "https://bitdb.network/q/ewogICJ2IjogMiwKICAiZSI6IHsgIm91dC5iMSI6ICJoZXgiICB9LAogICJxIjogewogICAgImZpbmQiOiB7IAogICAgICAib3V0LmIxIjogImU5MDEiLAogICAgICAib3V0LmIwIjogewogICAgICAgICJvcCI6IDEwNgogICAgICB9LAogICAgICAiYmxrLmkiOiB7CiAgICAgICAgIiRndGUiIDogNTUwMDAwCiAgICAgIH0KCiAgICB9LAogICAgInByb2plY3QiOiB7CiAgICAgICJvdXQuYjEiOiAxLAogICAgICAib3V0LnMyIjogMSwKICAgICAgIm91dC5zMyI6IDEsCiAgICAgICJvdXQuczQiOiAxLAogICAgICAidHguaCI6IDEsCiAgICAgICJfaWQiOiAwCiAgICB9CiAgfQp9"
 	client := &http.Client{}
 	req, _ := http.NewRequest("GET", url, nil)
 	req.Header.Set("key", "qz6qzfpttw44eqzqz8t2k26qxswhff79ng40pp2m44")
