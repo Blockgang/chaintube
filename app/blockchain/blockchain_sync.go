@@ -58,10 +58,10 @@ type Id struct {
 	H string `json:"h"`
 }
 
-func insertIntoMysql(TxId string, TxB1 string, S2Hash string, S2Type string, S2Title string) bool {
-	fmt.Println(TxId, TxB1, S2Hash, S2Type, S2Title)
+func insertIntoMysql(TxId string, prefix string, hash string, data_type string, title string) bool {
+	fmt.Println(TxId, prefix, hash, data_type, title)
 	//Mysql
-	db, err := sql.Open("mysql", "root:8drRNG8RWw9FjzeJuavbY6f9@tcp(db:3306)/theca")
+	db, err := sql.Open("mysql", "root:123456@tcp(127.0.0.1:3306)/theca")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -72,7 +72,7 @@ func insertIntoMysql(TxId string, TxB1 string, S2Hash string, S2Type string, S2T
 	//insert, err := db.Query(sql_query)
 	defer insert.Close()
 
-	rows, err := insert.Query(TxId, TxB1, S2Hash, S2Type, S2Title)
+	rows, err := insert.Query(TxId, prefix, hash, data_type, title)
 	defer rows.Close()
 
 	if err != nil {
@@ -104,20 +104,20 @@ func main() {
 		txOuts := q.Confirmed[i].Out
 		var Prefix string
 		var Hash string
-		var Type string
+		var Datatype string
 		var Title string
 		for a := range txOuts {
 			if txOuts[a].B1 == "e901" {
 				Prefix = txOuts[a].B1
 				Hash = txOuts[a].S2
-				Type = txOuts[a].S3
+				Datatype = txOuts[a].S3
 				Title = txOuts[a].S4
 			}
 		}
 
-		if len(Prefix) != 0 {
-			fmt.Println(TxId, Prefix, Hash, Type, Title)
-			insertIntoMysql(TxId, Prefix, Hash, Type, Title)
+		if len(Prefix) != 0 && len(Hash) > 20 && len(Datatype) > 2 {
+			fmt.Println(TxId, Prefix, Hash, Datatype, Title)
+			insertIntoMysql(TxId, Prefix, Hash, Datatype, Title)
 		}
 
 		// re := `(\S{20,50})\|(\S{4})\|(.*)`
