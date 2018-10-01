@@ -8,12 +8,14 @@ https://instant.io/
 
 https://icons8.com/icon/set/error/all
 
+https://github.com/unwriter/datacash
+
 Prefix: 0xe901 (Main)
 ```
 
-# OP_RETURN 0xe901|<hash-type>|<magnet/ipfs-hash>|<data-type>|<titel>
+# OP_RETURN 0xe901 <magnet/ipfs-hash> <data-type> <titel>
 
-OP_RETURN 0xe901|magnet|08ada5a7a6183aae1e09d831df6748d566095a10|mp4|DAS IST DER TITEL DES VIEOS
+OP_RETURN (PD1)0xe901  (PD2)magnet:?xt=urn:btih:678d1a0744863813bd11e12c473e0a2ab3d07f27 (PD3)mp4 (PD4)DAS IST DER TITEL DES VIEOS
 
 ```
 
@@ -21,9 +23,9 @@ Prefix: 0xe902 (Description)
 ```
 # OP_RETURN 0xe902 <hash>|<chunk-nr>|<data>
 
-OP_RETURN 0xe902 08ada5a7a6183aae1e09d831df6748d566095a10|0|Erster Teil der Beschreibung
+OP_RETURN (PD1)0xe902 (PD2)magnet:?xt=urn:btih:678d1a0744863813bd11e12c473e0a2ab3d07f27 (PD3)0 (PD4)Erster Teil der Beschreibung
 
-OP_RETURN 0xe902 08ada5a7a6183aae1e09d831df6748d566095a10|1|und das ist der 2. Teil der Beschreibung
+OP_RETURN (PD1)0xe902 (PD2)magnet:?xt=urn:btih:678d1a0744863813bd11e12c473e0a2ab3d07f27 (PD3)1 (PD4)und das ist der 2. Teil der Beschreibung
 ...
 ```
 
