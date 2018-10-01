@@ -79,7 +79,7 @@ func insertIntoMysql(TxId string, prefix string, hash string, data_type string, 
 
 	_, err = insert.Query(TxId, prefix, hash, data_type, title, blocktimestamp)
 	if err != nil {
-		return true
+		return false
 	}
 	return true
 }
@@ -122,7 +122,7 @@ func main() {
 			fmt.Println(TxId, Prefix, Hash, Datatype, Title, BlockTimestamp)
 			insert := insertIntoMysql(TxId, Prefix, Hash, Datatype, Title, BlockTimestamp)
 			if insert != true {
-				fmt.Println("Insert failed !")
+				fmt.Println("Insert failed ! (error or duplicated db entry)")
 			} else {
 				fmt.Println("Insert OK")
 			}
