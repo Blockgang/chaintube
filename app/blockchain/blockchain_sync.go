@@ -69,22 +69,18 @@ func insertIntoMysql(TxId string, prefix string, hash string, data_type string, 
 	//Mysql
 	db, err := sql.Open("mysql", "root:123456@tcp(127.0.0.1:3306)/theca")
 	if err != nil {
-		log.Fatal(err)
+		return false
 	}
 	defer db.Close()
 
 	sql_query := "INSERT INTO opreturn VALUES(?,?,?,?,?,?)"
 	insert, err := db.Prepare(sql_query)
-	//insert, err := db.Query(sql_query)
 	defer insert.Close()
 
-	rows, err := insert.Query(TxId, prefix, hash, data_type, title, blocktimestamp)
-	defer rows.Close()
-
+	_, err = insert.Query(TxId, prefix, hash, data_type, title, blocktimestamp)
 	if err != nil {
-		return false
+		return true
 	}
-
 	return true
 }
 
@@ -124,25 +120,13 @@ func main() {
 
 		if len(Prefix) != 0 && len(Hash) > 20 && len(Datatype) > 2 {
 			fmt.Println(TxId, Prefix, Hash, Datatype, Title, BlockTimestamp)
-			insertIntoMysql(TxId, Prefix, Hash, Datatype, Title, BlockTimestamp)
+			insert := insertIntoMysql(TxId, Prefix, Hash, Datatype, Title, BlockTimestamp)
+			if insert != true {
+				fmt.Println("Insert failed!")
+			} else {
+				fmt.Println("Insert OK")
+			}
 		}
-
-		// re := `(\S{20,50})\|(\S{4})\|(.*)`
-		// rex := regexp.MustCompile(re)
-		// matches := rex.FindAllStringSubmatch(TxS2, -1)
-
-		// if len(matches) != 0 {
-		// 	var S2Hash string
-		// 	var S2Type string
-		// 	var S2Title string
-		// 	for _, i := range matches {
-		// 		S2Hash = i[1]
-		// 		S2Type = i[2]
-		// 		S2Title = i[3]
-		// 	}
-		// 	fmt.Println(TxId, TxB1, S2Hash, S2Type, S2Title)
-		// 	insertIntoMysql(TxId, TxB1, S2Hash, S2Type, S2Title)
-		// }
 	}
 
 }
