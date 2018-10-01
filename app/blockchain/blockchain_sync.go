@@ -65,7 +65,7 @@ type Id struct {
 }
 
 func insertIntoMysql(TxId string, prefix string, hash string, data_type string, title string, blocktimestamp int64) bool {
-	fmt.Println(TxId, prefix, hash, data_type, title, blocktimestamp)
+	fmt.Println("==> ", blocktimestamp, TxId, prefix, hash, data_type, title)
 	//Mysql
 	db, err := sql.Open("mysql", "root:123456@tcp(127.0.0.1:3306)/theca")
 	if err != nil {
