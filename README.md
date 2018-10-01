@@ -1,16 +1,17 @@
-##### CHAINTUBE.CASH #####
+# CHAINTUBE.CASH
 
 Media Plattform basierend auf Bitcoin Cash (OP_RETURN)
 
-https://blockgang.github.io/chaintube
+* https://blockgang.github.io/chaintube
+* https://instant.io/
+* https://icons8.com/icon/set/error/all
+* https://github.com/unwriter/datacash
+* https://docs.bitdb.network/docs/quickstart
 
-https://instant.io/
+# Installation
+ go get -u github.com/go-sql-driver/mysql
 
-https://icons8.com/icon/set/error/all
-
-https://github.com/unwriter/datacash
-
-https://docs.bitdb.network/docs/quickstart
+# Prefix
 
 Prefix: 0xe901 (Main)
 ```
@@ -73,8 +74,7 @@ Poll vote 	0x6d14 	poll_txhash(30), comment(184) 	Implemented
 Send money 	0x6d24 	message(217) 	Planned
 ```
 
-TODOs:
+## TODO
 
-webtorrent performance
-
-webtorrent bug fix ( videos werden nicht immer angezeigt)
+* webtorrent performance
+* webtorrent bug fix ( videos werden nicht immer angezeigt)
