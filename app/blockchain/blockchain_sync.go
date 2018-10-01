@@ -97,7 +97,7 @@ func main() {
 
 		query = fmt.Sprintf(query, ScannerBlockHeight)
 
-		fmt.Println(query)
+		fmt.Println("ScannerHeight:", ScannerBlockHeight)
 		//url encoded query : blocksize greater than 550'000
 		b64_query := base64.StdEncoding.EncodeToString([]byte(query))
 		url := "https://bitdb.network/q/" + b64_query
